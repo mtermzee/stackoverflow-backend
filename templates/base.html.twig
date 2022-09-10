@@ -21,6 +21,62 @@
 		{% endblock %}
 	</head>
 	<body>
+		{% block header %}
+			<nav class="bg-white border-gray-200 dark:bg-gray-900">
+				<div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl px-4 md:px-6 py-2.5">
+					<a href="https://flowbite.com" class="flex items-center">
+						<img src="https://flowbite.com/docs/images/logo.svg" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo">
+						<span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
+					</a>
+					<div class="flex items-center">
+						<a href="tel:5541251234" class="mr-6 text-sm font-medium text-gray-500 dark:text-white hover:underline">(555) 412-1234</a>
+						<a href="#" class="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline">Login</a>
+					</div>
+				</div>
+			</nav>
+			<nav class="bg-gray-50 dark:bg-gray-700">
+				<div class="py-3 px-4 mx-auto max-w-screen-xl md:px-6">
+					<div class="flex items-center">
+						<ul class="flex flex-row mt-0 mr-6 space-x-8 text-sm font-medium">
+							<li>
+								<a href="#" class="text-gray-900 dark:text-white hover:underline" aria-current="page">Home</a>
+							</li>
+							<li>
+								<a href="#" class="text-gray-900 dark:text-white hover:underline">Company</a>
+							</li>
+							<li>
+								<a href="#" class="text-gray-900 dark:text-white hover:underline">Team</a>
+							</li>
+							<li>
+								<a href="#" class="text-gray-900 dark:text-white hover:underline">Features</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+		{% endblock %}
+
 		{% block body %}{% endblock %}
+		
+		{% block footer %}
+			<footer class="p-4 bg-white md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800">
+				<span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2022 <a href="https://flowbite.com/" class="hover:underline">Flowbite™</a>. All Rights Reserved.
+				</span>
+				<ul class="flex flex-wrap items-center mt-3 text-sm text-gray-500 dark:text-gray-400 sm:mt-0">
+					<li>
+						<a href="#" class="mr-4 hover:underline md:mr-6 ">About</a>
+					</li>
+					<li>
+						<a href="#" class="mr-4 hover:underline md:mr-6">Privacy Policy</a>
+					</li>
+					<li>
+						<a href="#" class="mr-4 hover:underline md:mr-6">Licensing</a>
+					</li>
+					<li>
+						<a href="#" class="hover:underline">Contact</a>
+					</li>
+				</ul>
+			</footer>
+		{% endblock %}
 	</body>
 </html></head></html>
