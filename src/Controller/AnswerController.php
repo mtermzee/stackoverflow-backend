@@ -52,7 +52,7 @@ class AnswerController extends AbstractController
             $request->query->get('q')
         );
 
-        return $this->render('comment/popularAnswers.html.twig', [
+        return $this->render('answer/popularAnswers.html.twig', [
             'answers' => $answers,
         ]);
     }
