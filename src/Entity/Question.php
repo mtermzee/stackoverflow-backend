@@ -7,10 +7,15 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 #[ORM\Entity(repositoryClass: QuestionRepository::class)]
 class Question
 {
+    // use it for the created and updated fields
+    use TimestampableEntity;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -20,6 +25,7 @@ class Question
     private ?string $name = null;
 
     #[ORM\Column(length: 100)]
+    #[Gedmo\Slug(fields: ['name'])]
     private ?string $slug = null;
 
     #[ORM\Column(type: Types::TEXT)]
@@ -104,6 +110,27 @@ class Question
     public function setVotes(int $votes): self
     {
         $this->votes = $votes;
+
+        return $this;
+    }
+
+    public function getVotesString(): string
+    {
+        $prefix = $this->votes > 0 ? '+' : '-';
+
+        return sprintf('%s%d', $prefix, abs($this->getVotes()));
+    }
+
+    public function upVote(): self
+    {
+        $this->votes++;
+
+        return $this;
+    }
+
+    public function downVote(): self
+    {
+        $this->votes--;
 
         return $this;
     }

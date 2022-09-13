@@ -6,10 +6,15 @@ use App\Repository\TagRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 #[ORM\Entity(repositoryClass: TagRepository::class)]
 class Tag
 {
+    // use it for the created and updated fields
+    use TimestampableEntity;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -19,7 +24,7 @@ class Tag
     private ?string $name = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $taggedAt = null;
+    private ?\DateTimeImmutable $taggedAt;
 
     #[ORM\ManyToMany(targetEntity: Question::class, mappedBy: 'tags')]
     private Collection $questions;
@@ -27,6 +32,7 @@ class Tag
     public function __construct()
     {
         $this->questions = new ArrayCollection();
+        $this->taggedAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
