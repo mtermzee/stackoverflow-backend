@@ -29,7 +29,7 @@
 
 			<div class="mt-4 mb-6">
 				<div class="mb-3 text-xl font-bold">{{ question.name }}</div>
-				<div class="text-sm text-neutral-600">{{ question.question }}</div>
+				<div class="text-sm text-neutral-600">{{ question.question|parse_markdown }}</div>
 			</div>
 
 			<div>

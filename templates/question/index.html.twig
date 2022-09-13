@@ -34,7 +34,7 @@
 		class="container mx-auto my-10">
 		<!-- component -->
 		{% for question in questions %}
-			<div class='flex items-center justify-center'>
+			<div class='flex items-center justify-center my-5'>
 				<div class="rounded-xl border p-5 shadow-md w-9/12 bg-white">
 					<div class="flex w-full items-center justify-between border-b pb-3">
 						<div class="flex items-center space-x-3">
@@ -62,7 +62,7 @@
 								{{ question.name }}
 							</a>
 						</div>
-						<div class="text-sm text-neutral-600">{{ question.question }}</div>
+						<div class="text-sm text-neutral-600">{{ question.question|parse_markdown  }}</div>
 					</div>
 
 					<div>

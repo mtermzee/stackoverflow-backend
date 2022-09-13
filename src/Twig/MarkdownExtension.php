@@ -26,7 +26,7 @@ class MarkdownExtension extends AbstractExtension
         ];
     }
 
-    public function doSomething($value)
+    public function parseMarkdown($value)
     {
         return $this->markdownHelper->parse($value);
     }
