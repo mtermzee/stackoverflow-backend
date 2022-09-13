@@ -41,9 +41,9 @@ class QuestionRepository extends ServiceEntityRepository
     }
 
     /**
-     *@return Question[] Returns an array of Question objects
+     *@ return Question[] Returns an array of Question objects
      */
-    public function findAllAskedOrderedByNewest(): array
+    /*public function findAllAskedOrderedByNewest(): array
     {
         return $this->addIsAskedQueryBuilder()
             ->orderBy('q.askedAt', 'DESC')
@@ -53,6 +53,15 @@ class QuestionRepository extends ServiceEntityRepository
             ->addSelect('tag')
             ->getQuery()
             ->getResult();
+    }*/
+    //insted of up we do here Pagination
+    public function createAskedOrderByNewestQueryBuilder(): QueryBuilder
+    {
+        return $this->addIsAskedQueryBuilder()
+            ->orderBy('q.askedAt', 'DESC')
+            // joining across many-to-many relations: N+1 problem
+            ->leftJoin('q.tags', 'tag')
+            ->addSelect('tag');
     }
 
     // use it everywhere

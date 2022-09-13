@@ -1,0 +1,3 @@
+babdev_pagerfanta:
+   # The default Pagerfanta view to use in your application
+   default_view: twitter_bootstrap5
