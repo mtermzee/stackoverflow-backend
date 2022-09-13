@@ -35,14 +35,23 @@ final class QuestionFactory extends ModelFactory
         // TODO inject services if required (https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#factories-as-services)
     }
 
+    public function unpublished(): self
+    {
+        return $this->addState(['askedAt' => null]);
+    }
+
     protected function getDefaults(): array
     {
         return [
             // TODO add your default values here (https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#model-factories)
-            'name' => self::faker()->text(),
-            'slug' => self::faker()->text(),
-            'question' => self::faker()->text(),
-            'votes' => self::faker()->randomNumber(),
+            'name' => self::faker()->realText(40),
+            //'slug' => self::faker()->text(),
+            'question' => self::faker()->paragraphs(
+                self::faker()->numberBetween(1, 4),
+                true
+            ),
+            'askedAt' =>  self::faker()->dateTimeBetween('-100 days', '-1 minute'),
+            'votes' => rand(-20, 50)
         ];
     }
 
