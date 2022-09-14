@@ -7,12 +7,15 @@ Es gibt auch popular Answers, dh. meiseten gute votes haben werden auch erst gez
 Die suche funktioniert so -> answer und question
 
 
-### run server
+### symfony server
 ```
 composer install
 symfony server:start -d 
 symfony server:stop
 php -S 127.0.0.1:8000 -t public
+```
 
+### run server
+```
 npm run watch
 ```
