@@ -46,7 +46,6 @@ class QuestionController extends AbstractController
     #[Route('/questions/{slug}/vote', name: 'app_question_vote', methods: ['POST'])]
     public function questionVoteCount(Question $question, Request $request, EntityManagerInterface $entityManager)
     {
-
         $direction = $request->request->get('direction');
 
         if ($direction === 'up') {

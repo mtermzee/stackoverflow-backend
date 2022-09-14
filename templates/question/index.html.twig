@@ -30,6 +30,16 @@
 			</div>
 		</div>
 	</div>
+
+	<div data-controller="hello" class="mx-10">
+		<input data-hello-target="name" type="text">
+
+		<button data-action="click->hello#greet">
+			Greet
+		</button>
+		<span data-hello-target="output"></span>
+	</div>
+
 	<div
 		class="container mx-auto my-10">
 		<!-- component -->
