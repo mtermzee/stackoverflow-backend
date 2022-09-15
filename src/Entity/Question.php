@@ -17,8 +17,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OrderBy;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 
-#[ApiResource()]
+#[ApiResource(
+    normalizationContext: ['groups' => ['read']],
+    denormalizationContext: ['groups' => ['write']],
+)]
 #[ApiFilter(BooleanFilter::class, properties: ['isPublished'])]
 #[ApiFilter(SearchFilter::class, properties: ['name' => 'partial'])]
 #[ApiFilter(RangeFilter::class, properties: ['votes'])]
@@ -33,25 +37,32 @@ class Question
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Groups(['read', 'write'])]
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+    #[Groups(['read', 'write'])]
     #[ORM\Column(length: 100)]
     #[Gedmo\Slug(fields: ['name'])]
     private ?string $slug = null;
 
+    #[Groups(['read', 'write'])]
     #[ORM\Column(type: Types::TEXT)]
     private ?string $question = null;
 
+    #[Groups(['read', 'write'])]
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $askedAt = null;
 
+    #[Groups(['read', 'write'])]
     #[ORM\Column]
     private int $votes = 0;
 
+    #[Groups(['read', 'write'])]
     #[ORM\OneToMany(mappedBy: 'question', targetEntity: Answer::class, fetch: 'EXTRA_LAZY'), OrderBy(['createdAt' => 'DESC'])]
     private Collection $answers;
 
+    #[Groups(['read', 'write'])]
     #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'questions')]
     private Collection $tags;
 
@@ -103,6 +114,17 @@ class Question
         $this->question = $question;
 
         return $this;
+    }
+
+    #[Groups(['read'])]
+    public function getShortQuestion(): ?string
+    {
+        //strip_tags
+        if (strlen($this->question) < 40) {
+            return $this->question;
+        }
+
+        return substr($this->question, 0, 40) . '...';
     }
 
     public function getAskedAt(): ?\DateTimeInterface
