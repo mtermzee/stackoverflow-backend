@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\BooleanFilter;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\AnswerRepository;
 use App\Repository\QuestionRepository;
@@ -15,6 +17,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 #[ApiResource()]
+#[ApiFilter(BooleanFilter::class, properties: ['isPublished'])]
 #[ORM\Entity(repositoryClass: QuestionRepository::class)]
 class Question
 {
