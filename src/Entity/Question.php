@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\AnswerRepository;
 use App\Repository\QuestionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -13,6 +14,7 @@ use Doctrine\ORM\Mapping\OrderBy;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 
+#[ApiResource()]
 #[ORM\Entity(repositoryClass: QuestionRepository::class)]
 class Question
 {
@@ -45,6 +47,9 @@ class Question
 
     #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'questions')]
     private Collection $tags;
+
+    #[ORM\Column]
+    private ?bool $isPublished = null;
 
     public function __construct()
     {
@@ -197,6 +202,18 @@ class Question
     public function removeTag(Tag $tag): self
     {
         $this->tags->removeElement($tag);
+
+        return $this;
+    }
+
+    public function isIsPublished(): ?bool
+    {
+        return $this->isPublished;
+    }
+
+    public function setIsPublished(bool $isPublished): self
+    {
+        $this->isPublished = $isPublished;
 
         return $this;
     }
