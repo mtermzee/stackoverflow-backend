@@ -11,7 +11,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ApiResource(
-    //, 'groups' => ['answer:read']
+    //, 'groups' => ['user:read']
     normalizationContext: ['groups' => ['read']],
     denormalizationContext: ['groups' => ['write']]
 )]
@@ -46,7 +46,7 @@ class Answer
     #[ORM\Column(length: 15)]
     private ?string $status = null;
 
-    #[Groups(['read', 'write'])]
+    #[Groups(['read'])]
     #[ORM\ManyToOne(inversedBy: 'answers')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Question $question = null;

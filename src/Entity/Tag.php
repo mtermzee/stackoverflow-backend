@@ -9,8 +9,13 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 
-#[ApiResource()]
+#[ApiResource(
+    //, 'groups' => ['user:read']
+    normalizationContext: ['groups' => ['read']],
+    denormalizationContext: ['groups' => ['write']]
+)]
 #[ORM\Entity(repositoryClass: TagRepository::class)]
 class Tag
 {
@@ -22,12 +27,15 @@ class Tag
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Groups(['read', 'write'])]
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+    #[Groups(['read', 'write'])]
     #[ORM\Column]
     private ?\DateTimeImmutable $taggedAt;
 
+    #[Groups(['read'])]
     #[ORM\ManyToMany(targetEntity: Question::class, mappedBy: 'tags')]
     private Collection $questions;
 

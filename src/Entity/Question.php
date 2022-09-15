@@ -22,7 +22,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ApiResource(
-    //, 'groups' => ['answer:read']
+    //, 'groups' => ['user:read']
     normalizationContext: ['groups' => ['read']],
     denormalizationContext: ['groups' => ['write']],
     paginationClientEnabled: true,
@@ -81,7 +81,7 @@ class Question
     private Collection $answers;
 
     #[Groups(['read'])]
-    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'questions')]
+    #[ORM\ManyToMany(targetEntity: Tag::class, fetch: 'EXTRA_LAZY', inversedBy: 'questions')]
     private Collection $tags;
 
     #[Groups(['read'])]
