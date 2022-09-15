@@ -84,9 +84,9 @@ class Question
     #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'questions')]
     private Collection $tags;
 
-    #[Groups(['read', 'write'])]
+    #[Groups(['read'])]
     #[ORM\Column]
-    private ?bool $isPublished = null;
+    private ?bool $isPublished = false;
 
     public function __construct()
     {
