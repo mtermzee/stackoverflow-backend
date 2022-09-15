@@ -56,6 +56,7 @@ class Question
     #[Groups(['read', 'write'])]
     #[ORM\Column(length: 100)]
     #[Gedmo\Slug(fields: ['title'])]
+    #[Assert\NotBlank]
     private ?string $slug = null;
 
     #[Groups(['read', 'write'])]
@@ -65,6 +66,7 @@ class Question
     private ?string $question = null;
 
     #[Groups(['read', 'write'])]
+    #[Assert\NotBlank]
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $askedAt = null;
 
