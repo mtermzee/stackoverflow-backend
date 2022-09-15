@@ -19,6 +19,7 @@ use Doctrine\ORM\Mapping\OrderBy;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ApiResource(
     normalizationContext: ['groups' => ['read']],
@@ -43,6 +44,8 @@ class Question
 
     #[Groups(['read', 'write'])]
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 2, max: 50, maxMessage: 'The question name is too long.')]
     private ?string $name = null;
 
     #[Groups(['read', 'write'])]
@@ -52,6 +55,8 @@ class Question
 
     #[Groups(['read', 'write'])]
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 2, max: 255, maxMessage: 'The question description is too long.')]
     private ?string $question = null;
 
     #[Groups(['read', 'write'])]
@@ -60,6 +65,7 @@ class Question
 
     #[Groups(['read', 'write'])]
     #[ORM\Column]
+    #[Assert\NotBlank]
     private int $votes = 0;
 
     #[Groups(['read', 'write'])]
