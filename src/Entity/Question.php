@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Doctrine\Orm\Filter\BooleanFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\AnswerRepository;
@@ -18,6 +19,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 #[ApiResource()]
 #[ApiFilter(BooleanFilter::class, properties: ['isPublished'])]
+#[ApiFilter(SearchFilter::class, properties: ['name' => 'partial'])]
 #[ORM\Entity(repositoryClass: QuestionRepository::class)]
 class Question
 {
