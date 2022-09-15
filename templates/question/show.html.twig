@@ -2,7 +2,7 @@
 
 {% block title %}
 	Question:
-	{{ question.name }}
+	{{ question.title }}
 {% endblock %}
 
 {% block body %}
@@ -12,7 +12,7 @@
 			<div class="flex w-full items-center justify-between border-b pb-3">
 				<div class="flex items-center space-x-3">
 					<div class="h-8 w-8 rounded-full bg-slate-400 bg-[url('https://i.pravatar.cc/32')]"></div>
-					<div class="text-lg font-bold text-slate-700">Joe Smith</div>
+					<div class="text-lg font-bold text-slate-700">{{ question.username }}</div>
 				</div>
 				<div class="flex items-center space-x-8">
 					<button class="rounded-2xl border bg-neutral-100 px-3 py-1 text-xs font-semibold">Category</button>
@@ -28,7 +28,7 @@
 			</div>
 
 			<div class="mt-4 mb-6">
-				<div class="mb-3 text-xl font-bold">{{ question.name }}</div>
+				<div class="mb-3 text-xl font-bold">{{ question.title }}</div>
 				<div class="text-sm text-neutral-600">{{ question.question|parse_markdown }}</div>
 			</div>
 

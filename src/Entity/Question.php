@@ -45,12 +45,17 @@ class Question
     #[Groups(['read', 'write'])]
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank]
+    private ?string $username = null;
+
+    #[Groups(['read', 'write'])]
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
     #[Assert\Length(min: 2, max: 50, maxMessage: 'The question name is too long.')]
-    private ?string $name = null;
+    private ?string $title = null;
 
     #[Groups(['read', 'write'])]
     #[ORM\Column(length: 100)]
-    #[Gedmo\Slug(fields: ['name'])]
+    #[Gedmo\Slug(fields: ['title'])]
     private ?string $slug = null;
 
     #[Groups(['read', 'write'])]
@@ -90,14 +95,26 @@ class Question
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getuserName(): ?string
     {
-        return $this->name;
+        return $this->username;
     }
 
-    public function setName(string $name): self
+    public function setuserName(string $username): self
     {
-        $this->name = $name;
+        $this->username = $username;
+
+        return $this;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(string $title): self
+    {
+        $this->title = $title;
 
         return $this;
     }

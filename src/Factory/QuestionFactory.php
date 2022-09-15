@@ -44,7 +44,8 @@ final class QuestionFactory extends ModelFactory
     {
         return [
             // TODO add your default values here (https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#model-factories)
-            'name' => self::faker()->realText(40),
+            'username' => self::faker()->username(),
+            'title' => self::faker()->realText(40),
             //'slug' => self::faker()->text(),
             'question' => self::faker()->paragraphs(
                 self::faker()->numberBetween(1, 4),
