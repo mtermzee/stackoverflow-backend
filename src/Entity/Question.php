@@ -68,19 +68,20 @@ class Question
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $askedAt = null;
 
-    #[Groups(['read', 'write'])]
+    #[Groups(['read'])]
     #[ORM\Column]
     #[Assert\NotBlank]
     private int $votes = 0;
 
-    #[Groups(['read', 'write'])]
+    #[Groups(['read'])]
     #[ORM\OneToMany(mappedBy: 'question', targetEntity: Answer::class, fetch: 'EXTRA_LAZY'), OrderBy(['createdAt' => 'DESC'])]
     private Collection $answers;
 
-    #[Groups(['read', 'write'])]
+    #[Groups(['read'])]
     #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'questions')]
     private Collection $tags;
 
+    #[Groups(['read', 'write'])]
     #[ORM\Column]
     private ?bool $isPublished = null;
 
