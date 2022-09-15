@@ -22,6 +22,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ApiResource(
+    //, 'groups' => ['answer:read']
     normalizationContext: ['groups' => ['read']],
     denormalizationContext: ['groups' => ['write']],
     paginationClientEnabled: true,
