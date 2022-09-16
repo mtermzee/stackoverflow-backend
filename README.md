@@ -20,3 +20,11 @@ php -S 127.0.0.1:8000 -t public
 ```
 npm run watch
 ```
+
+### for new install
+```
+composer install
+npm install
+php bin/console cache:clear
+npm run build
+```
