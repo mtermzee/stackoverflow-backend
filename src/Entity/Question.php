@@ -29,7 +29,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     paginationItemsPerPage: 10
 )]
 #[ApiFilter(BooleanFilter::class, properties: ['isPublished'])]
-#[ApiFilter(SearchFilter::class, properties: ['name' => 'partial'])]
+#[ApiFilter(SearchFilter::class, properties: ['title' => 'partial', 'username' => 'exact'])]
 #[ApiFilter(RangeFilter::class, properties: ['votes'])]
 #[ApiFilter(PropertyFilter::class)]
 #[ORM\Entity(repositoryClass: QuestionRepository::class)]
