@@ -26,7 +26,7 @@ class Answer
     public const STATUS_APPROVED = 'approved';
 
     // use it for the created and updated fields
-    use TimestampableEntity;
+    //use TimestampableEntity;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -48,6 +48,16 @@ class Answer
     #[Groups(['read'])]
     #[ORM\Column(length: 15)]
     private ?string $status = null;
+
+    #[Groups(['read'])]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Gedmo\Timestampable(on: 'create')]
+    private $createdAt;
+
+    #[Groups(['read'])]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Gedmo\Timestampable(on: 'update')]
+    private $updatedAt;
 
     #[Groups(['read'])]
     #[ORM\ManyToOne(inversedBy: 'answers')]
@@ -155,5 +165,24 @@ class Answer
         }
 
         return (string)$this->getQuestion()->getQuestion();
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+    public function setCreatedAt(?\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
     }
 }

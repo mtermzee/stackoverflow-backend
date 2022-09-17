@@ -47,10 +47,10 @@ final class AnswerFactory extends ModelFactory
             'content' => self::faker()->text(),
             'username' => self::faker()->username(),
             'votes' => self::faker()->numberBetween(-20, 50),
-            'createdAt' => self::faker()->dateTimeBetween('-1 year'), // TODO add DATETIME ORM type manually
             'question' => QuestionFactory::new()->unpublished(),
             'status' => Answer::STATUS_APPROVED,
             //'question' => QuestionFactory::random()
+            // 'createdAt' => self::faker()->dateTimeBetween('-1 year'), // TODO add DATETIME ORM type manually
             //'updatedAt' => null, // TODO add DATETIME ORM type manually
         ];
     }

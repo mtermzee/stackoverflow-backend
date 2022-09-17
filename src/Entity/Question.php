@@ -36,7 +36,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Question
 {
     // use it for the created and updated fields
-    use TimestampableEntity;
+    //use TimestampableEntity;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -77,16 +77,26 @@ class Question
     private int $votes = 0;
 
     #[Groups(['read'])]
+    #[ORM\Column]
+    private ?bool $isPublished = false;
+
+    #[Groups(['read'])]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Gedmo\Timestampable(on: 'create')]
+    private $createdAt;
+
+    #[Groups(['read'])]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Gedmo\Timestampable(on: 'update')]
+    private $updatedAt;
+
+    #[Groups(['read'])]
     #[ORM\OneToMany(mappedBy: 'question', targetEntity: Answer::class, fetch: 'EXTRA_LAZY'), OrderBy(['createdAt' => 'DESC'])]
     private Collection $answers;
 
     #[Groups(['read'])]
     #[ORM\ManyToMany(targetEntity: Tag::class, fetch: 'EXTRA_LAZY', inversedBy: 'questions')]
     private Collection $tags;
-
-    #[Groups(['read'])]
-    #[ORM\Column]
-    private ?bool $isPublished = false;
 
     public function __construct()
     {
@@ -275,6 +285,25 @@ class Question
     {
         $this->isPublished = $isPublished;
 
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+    public function setCreatedAt(?\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
         return $this;
     }
 }

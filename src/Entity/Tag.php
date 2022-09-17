@@ -6,6 +6,7 @@ use ApiPlatform\Metadata\ApiResource;
 use App\Repository\TagRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
@@ -20,7 +21,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class Tag
 {
     // use it for the created and updated fields
-    use TimestampableEntity;
+    //use TimestampableEntity;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -36,8 +37,19 @@ class Tag
     private ?\DateTimeImmutable $taggedAt;
 
     #[Groups(['read'])]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Gedmo\Timestampable(on: 'create')]
+    private $createdAt;
+
+    #[Groups(['read'])]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Gedmo\Timestampable(on: 'update')]
+    private $updatedAt;
+
+    #[Groups(['read'])]
     #[ORM\ManyToMany(targetEntity: Question::class, mappedBy: 'tags')]
     private Collection $questions;
+
 
     public function __construct()
     {
@@ -98,6 +110,25 @@ class Tag
             $question->removeTag($this);
         }
 
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+    public function setCreatedAt(?\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
         return $this;
     }
 }
