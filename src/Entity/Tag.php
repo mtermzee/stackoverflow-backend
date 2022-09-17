@@ -32,9 +32,11 @@ class Tag
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+    /* 
+    beacuse we have the TimestampableEntity trait, we don't need this field anymore
     #[Groups(['read', 'write'])]
     #[ORM\Column]
-    private ?\DateTimeImmutable $taggedAt;
+    private ?\DateTimeImmutable $taggedAt;*/
 
     #[Groups(['read'])]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
@@ -74,7 +76,7 @@ class Tag
         return $this;
     }
 
-    public function getTaggedAt(): ?\DateTimeImmutable
+    /* public function getTaggedAt(): ?\DateTimeImmutable
     {
         return $this->taggedAt;
     }
@@ -84,7 +86,7 @@ class Tag
         $this->taggedAt = $taggedAt;
 
         return $this;
-    }
+    }*/
 
     /**
      * @return Collection<int, Question>

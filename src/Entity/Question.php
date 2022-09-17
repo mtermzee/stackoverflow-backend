@@ -66,7 +66,7 @@ class Question
     #[Assert\Length(min: 2, max: 255, maxMessage: 'The question description is too long.')]
     private ?string $question = null;
 
-    #[Groups(['read', 'write'])]
+    #[Groups(['read'])]
     #[Assert\NotBlank]
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $askedAt = null;
