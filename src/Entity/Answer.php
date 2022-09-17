@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ApiResource(
     //, 'groups' => ['user:read']
@@ -35,14 +36,17 @@ class Answer
 
     #[Groups(['read', 'write'])]
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank]
     private ?string $content = null;
 
     #[Groups(['read', 'write'])]
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
     private ?string $username = null;
 
     #[Groups(['read'])]
     #[ORM\Column]
+    #[Assert\NotBlank]
     private int $votes = 0;
 
     #[Groups(['read'])]
