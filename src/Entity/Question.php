@@ -54,10 +54,9 @@ class Question
     #[Assert\Length(min: 2, max: 50, maxMessage: 'The question name is too long.')]
     private ?string $title = null;
 
-    #[Groups(['read', 'write'])]
+    #[Groups(['read'])]
     #[ORM\Column(length: 100)]
     #[Gedmo\Slug(fields: ['title'])]
-    #[Assert\NotBlank]
     private ?string $slug = null;
 
     #[Groups(['read', 'write'])]
@@ -66,14 +65,13 @@ class Question
     #[Assert\Length(min: 2, max: 255, maxMessage: 'The question description is too long.')]
     private ?string $question = null;
 
-    #[Groups(['read'])]
+    #[Groups(['read', 'write'])]
     #[Assert\NotBlank]
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $askedAt = null;
 
     #[Groups(['read'])]
     #[ORM\Column]
-    #[Assert\NotBlank]
     private int $votes = 0;
 
     #[Groups(['read'])]

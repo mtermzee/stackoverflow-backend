@@ -46,7 +46,6 @@ class Answer
 
     #[Groups(['read'])]
     #[ORM\Column]
-    #[Assert\NotBlank]
     private int $votes = 0;
 
     #[Groups(['read'])]
