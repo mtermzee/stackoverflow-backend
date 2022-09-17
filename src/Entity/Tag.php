@@ -48,7 +48,7 @@ class Tag
     #[Gedmo\Timestampable(on: 'update')]
     private $updatedAt;
 
-    #[Groups(['read'])]
+    //#[Groups(['read'])]
     #[ORM\ManyToMany(targetEntity: Question::class, mappedBy: 'tags')]
     private Collection $questions;
 

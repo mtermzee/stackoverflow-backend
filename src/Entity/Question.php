@@ -26,7 +26,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     normalizationContext: ['groups' => ['read']],
     denormalizationContext: ['groups' => ['write']],
     paginationClientEnabled: true,
-    paginationItemsPerPage: 10
+    paginationItemsPerPage: 5
 )]
 #[ApiFilter(BooleanFilter::class, properties: ['isPublished'])]
 #[ApiFilter(SearchFilter::class, properties: ['title' => 'partial', 'username' => 'exact'])]
