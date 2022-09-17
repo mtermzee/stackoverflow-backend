@@ -62,7 +62,7 @@ class Answer
     #[Gedmo\Timestampable(on: 'update')]
     private $updatedAt;
 
-    //#[Groups(['read'])]
+    #[Groups(['write'])]
     #[ORM\ManyToOne(inversedBy: 'answers')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Question $question = null;
