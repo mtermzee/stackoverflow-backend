@@ -12,6 +12,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use Carbon\Carbon;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
@@ -191,6 +192,11 @@ class Answer
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
+    }
+    #[Groups(['answer:read'])]
+    public function getCreatedAtAgo(): string
+    {
+        return Carbon::instance($this->getCreatedAt())->diffForHumans();
     }
     public function setCreatedAt(?\DateTimeInterface $createdAt): self
     {
