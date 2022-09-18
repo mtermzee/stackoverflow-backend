@@ -46,7 +46,7 @@ class Answer
     private ?int $id = null;
 
     //#[Groups(['read', 'write'])]
-    #[Groups(['answer:read', 'answer:write'])]
+    #[Groups(['answer:read', 'answer:write', 'question:read'])]
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank]
     private ?string $content = null;
