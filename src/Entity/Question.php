@@ -21,13 +21,28 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Carbon\Carbon;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
+use ApiPlatform\Metadata\Delete;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 
 #[ApiResource(
-    //, 'groups' => ['user:read']
-    normalizationContext: ['groups' => ['read']],
-    denormalizationContext: ['groups' => ['write']],
+    operations: [
+        new Get(),
+        new GetCollection(),
+        new Post(),
+        new Put(),
+        new Delete(),
+    ],
+    // ['groups' => ['read']]
+    // ['groups' => ['write']]
+    normalizationContext: ['groups' => ['question:read'], 'swagger_definition_name' => 'Read'],
+    denormalizationContext: ['groups' => ['question:write'], 'swagger_definition_name' => 'Write'],
     paginationClientEnabled: true,
-    paginationItemsPerPage: 5
+    paginationItemsPerPage: 5,
+
 )]
 #[ApiFilter(BooleanFilter::class, properties: ['isPublished'])]
 #[ApiFilter(SearchFilter::class, properties: ['title' => 'partial', 'username' => 'exact'])]
@@ -44,56 +59,67 @@ class Question
     #[ORM\Column]
     private ?int $id = null;
 
-    #[Groups(['read', 'write'])]
+    // #[Groups(['read', 'write'])]
+    #[Groups(['question:read', 'question:write'])]
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank]
     private ?string $username = null;
 
-    #[Groups(['read', 'write'])]
+    //#[Groups(['read', 'write'])]
+    #[Groups(['question:read', 'question:write'])]
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank]
     #[Assert\Length(min: 2, max: 50, maxMessage: 'The question name is too long.')]
     private ?string $title = null;
 
-    #[Groups(['read'])]
+    //#[Groups(['read'])]
+    #[Groups(['question:read'])]
     #[ORM\Column(length: 100)]
     #[Gedmo\Slug(fields: ['title'])]
     private ?string $slug = null;
 
-    #[Groups(['read', 'write'])]
+    // #[Groups(['read', 'write'])]
+    #[Groups(['question:read'])]
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank]
     #[Assert\Length(min: 2, max: 255, maxMessage: 'The question description is too long.')]
     private ?string $question = null;
 
-    #[Groups(['read', 'write'])]
+    // #[Groups(['read', 'write'])]
+    #[Groups(['question:read', 'question:write'])]
     #[Assert\NotBlank]
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $askedAt = null;
 
-    #[Groups(['read'])]
+    //#[Groups(['read'])]
+    #[Groups(['question:read'])]
     #[ORM\Column]
     private int $votes = 0;
 
-    #[Groups(['read'])]
+    // #[Groups(['read'])]
+    #[Groups(['question:read'])]
     #[ORM\Column]
     private ?bool $isPublished = false;
 
-    #[Groups(['read'])]
+    // #[Groups(['read'])]
+    #[Groups(['question:read'])]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Gedmo\Timestampable(on: 'create')]
     private $createdAt;
 
-    #[Groups(['read'])]
+    //#[Groups(['read'])]
+    #[Groups(['question:read'])]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Gedmo\Timestampable(on: 'update')]
     private $updatedAt;
 
-    #[Groups(['read'])]
+    // #[Groups(['read'])]
+    #[Groups(['question:read'])]
     #[ORM\OneToMany(mappedBy: 'question', targetEntity: Answer::class, fetch: 'EXTRA_LAZY'), OrderBy(['createdAt' => 'DESC'])]
     private Collection $answers;
 
-    #[Groups(['read'])]
+    // #[Groups(['read'])]
+    #[Groups(['question:read'])]
     #[ORM\ManyToMany(targetEntity: Tag::class, fetch: 'EXTRA_LAZY', inversedBy: 'questions')]
     private Collection $tags;
 
@@ -152,6 +178,15 @@ class Question
     public function setQuestion(string $question): self
     {
         $this->question = $question;
+
+        return $this;
+    }
+
+    #[Groups(['question:write'])]
+    #[SerializedName('description')]
+    public function setTextQuestion(string $question): self
+    {
+        $this->question = nl2br($question);
 
         return $this;
     }
@@ -291,6 +326,8 @@ class Question
     {
         return $this->createdAt;
     }
+    #[Groups(['question:read'])]
+
     public function getCreatedAtAgo(): string
     {
         return Carbon::instance($this->getCreatedAt())->diffForHumans();

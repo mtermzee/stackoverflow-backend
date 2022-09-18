@@ -12,11 +12,22 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
+use ApiPlatform\Metadata\Delete;
 
 #[ApiResource(
-    //, 'groups' => ['user:read']
-    normalizationContext: ['groups' => ['read']],
-    denormalizationContext: ['groups' => ['write']]
+    operations: [
+        new Get(),
+        new GetCollection(),
+        new Post(),
+        new Put(),
+        new Delete(),
+    ],
+    normalizationContext: ['groups' => ['answer:read'], 'swagger_definition_name' => 'Read'],
+    denormalizationContext: ['groups' => ['answer:write'], 'swagger_definition_name' => 'Write'],
 )]
 #[ApiFilter(PropertyFilter::class)]
 #[ORM\Entity(repositoryClass: AnswerRepository::class)]
@@ -34,35 +45,42 @@ class Answer
     #[ORM\Column]
     private ?int $id = null;
 
-    #[Groups(['read', 'write'])]
+    //#[Groups(['read', 'write'])]
+    #[Groups(['answer:read', 'answer:write'])]
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank]
     private ?string $content = null;
 
-    #[Groups(['read', 'write'])]
+    //#[Groups(['read', 'write'])]
+    #[Groups(['answer:read', 'answer:write'])]
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank]
     private ?string $username = null;
 
-    #[Groups(['read'])]
+    //#[Groups(['read'])]
+    #[Groups(['answer:read'])]
     #[ORM\Column]
     private int $votes = 0;
 
-    #[Groups(['read'])]
+    //#[Groups(['read'])]
+    #[Groups(['answer:read'])]
     #[ORM\Column(length: 15)]
     private ?string $status = null;
 
-    #[Groups(['read'])]
+    //#[Groups(['read'])]
+    #[Groups(['answer:read'])]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Gedmo\Timestampable(on: 'create')]
     private $createdAt;
 
-    #[Groups(['read'])]
+    //#[Groups(['read'])]
+    #[Groups(['answer:read'])]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Gedmo\Timestampable(on: 'update')]
     private $updatedAt;
 
-    #[Groups(['write'])]
+    //#[Groups(['write'])]
+    #[Groups(['answer:read'])]
     #[ORM\ManyToOne(inversedBy: 'answers')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Question $question = null;

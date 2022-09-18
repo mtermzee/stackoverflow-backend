@@ -12,11 +12,22 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
+use ApiPlatform\Metadata\Delete;
 
 #[ApiResource(
-    //, 'groups' => ['user:read']
-    normalizationContext: ['groups' => ['read']],
-    denormalizationContext: ['groups' => ['write']]
+    operations: [
+        new Get(),
+        new GetCollection(),
+        new Post(),
+        new Put(),
+        new Delete(),
+    ],
+    normalizationContext: ['groups' => ['tag:read'], 'swagger_definition_name' => 'Read'],
+    denormalizationContext: ['groups' => ['tag:write'], 'swagger_definition_name' => 'Write'],
 )]
 #[ORM\Entity(repositoryClass: TagRepository::class)]
 class Tag
@@ -29,7 +40,8 @@ class Tag
     #[ORM\Column]
     private ?int $id = null;
 
-    #[Groups(['read', 'write'])]
+    //#[Groups(['read', 'write'])]
+    #[Groups(['tag:read', 'tag:write'])]
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank]
     private ?string $name = null;
@@ -40,17 +52,20 @@ class Tag
     #[ORM\Column]
     private ?\DateTimeImmutable $taggedAt;*/
 
-    #[Groups(['read'])]
+    //#[Groups(['read'])]
+    #[Groups(['tag:read'])]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Gedmo\Timestampable(on: 'create')]
     private $createdAt;
 
-    #[Groups(['read'])]
+    //#[Groups(['read'])]
+    #[Groups(['tag:read'])]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Gedmo\Timestampable(on: 'update')]
     private $updatedAt;
 
-    #[Groups(['write'])]
+    //#[Groups(['write'])]
+    #[Groups(['tag:read'])]
     #[ORM\ManyToMany(targetEntity: Question::class, mappedBy: 'tags')]
     private Collection $questions;
 
