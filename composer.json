@@ -17,6 +17,7 @@
         "knplabs/knp-markdown-bundle": "^1.10",
         "knplabs/knp-time-bundle": "^1.19",
         "nelmio/cors-bundle": "^2.2",
+        "nesbot/carbon": "^2.62",
         "pagerfanta/doctrine-orm-adapter": "^3.6",
         "pagerfanta/twig": "^3.6",
         "phpdocumentor/reflection-docblock": "^5.3",
