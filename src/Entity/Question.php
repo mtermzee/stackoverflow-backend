@@ -92,7 +92,7 @@ class Question
     private ?\DateTimeInterface $askedAt = null;
 
     //#[Groups(['read'])]
-    #[Groups(['question:read'])]
+    #[Groups(['question:read', 'question:write'])]
     #[ORM\Column]
     private int $votes = 0;
 

@@ -59,13 +59,14 @@ class Answer
     private ?string $username = null;
 
     //#[Groups(['read'])]
-    #[Groups(['answer:read'])]
+    #[Groups(['answer:read', 'answer:write'])]
     #[ORM\Column]
     private int $votes = 0;
 
     //#[Groups(['read'])]
-    #[Groups(['answer:read'])]
+    #[Groups(['answer:read', 'answer:write'])]
     #[ORM\Column(length: 15)]
+    #[Assert\NotBlank]
     private ?string $status = null;
 
     //#[Groups(['read'])]

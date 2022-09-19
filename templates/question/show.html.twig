@@ -17,9 +17,9 @@
 				<div class="flex items-center space-x-8">
 					<button class="rounded-2xl border bg-neutral-100 px-3 py-1 text-xs font-semibold">Category</button>
 					<div class="text-xs text-neutral-500">
-						{% if question.askedAt %}
+						{% if question.createdAt %}
 							Asked
-							{{ question.askedAt|ago }}
+							{{ question.createdAt|ago }}
 						{% else %}
 							(unpublished)
 						{% endif %}
