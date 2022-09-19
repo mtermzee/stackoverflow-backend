@@ -119,7 +119,7 @@ class Question
     private Collection $answers;
 
     // #[Groups(['read'])]
-    #[Groups(['question:read'])]
+    #[Groups(['question:read', 'question:write'])]
     #[ORM\ManyToMany(targetEntity: Tag::class, fetch: 'EXTRA_LAZY', inversedBy: 'questions')]
     private Collection $tags;
 

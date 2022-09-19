@@ -12,6 +12,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Carbon\Carbon;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
@@ -31,6 +32,7 @@ use ApiPlatform\Metadata\Delete;
     denormalizationContext: ['groups' => ['tag:write'], 'swagger_definition_name' => 'Write'],
 )]
 #[ORM\Entity(repositoryClass: TagRepository::class)]
+#[UniqueEntity('name', message: 'This tag already exists')]
 class Tag
 {
     // use it for the created and updated fields
@@ -43,8 +45,9 @@ class Tag
 
     //#[Groups(['read', 'write'])]
     #[Groups(['tag:read', 'tag:write', 'question:read'])]
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, unique: true)]
     #[Assert\NotBlank]
+
     private ?string $name = null;
 
     /* 
@@ -66,7 +69,7 @@ class Tag
     private $updatedAt;
 
     //#[Groups(['write'])]
-    #[Groups(['tag:read', 'tag:write'])]
+    #[Groups(['tag:read'])]
     #[ORM\ManyToMany(targetEntity: Question::class, mappedBy: 'tags')]
     private Collection $questions;
 
