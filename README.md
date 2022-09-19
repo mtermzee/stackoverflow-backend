@@ -6,7 +6,7 @@ Es gibt auch popular Answers, dh. meiseten gute votes haben werden auch erst gez
 
 Die suche funktioniert so -> answer und question
 
-There is Vote system
+There is Vote system and Comments for Answers "there is no vote for Comments"
 
 ### symfony server
 ```
