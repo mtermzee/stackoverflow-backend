@@ -8,13 +8,6 @@ Die suche funktioniert so -> answer und question
 
 There is Vote system
 
-how to connect with Vue:
-https://symfonycasts.com/screencast/vue/vue-install
-https://www.npmjs.com/package/vue-api-platform
-
-for NUXT:
-https://github.com/RazinTeqB/nuxtjs_with_symfony_api
-
 ### symfony server
 ```
 composer install
