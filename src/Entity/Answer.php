@@ -81,7 +81,7 @@ class Answer
     private $updatedAt;
 
     //#[Groups(['write'])]
-    #[Groups(['answer:read'])]
+    #[Groups(['answer:read', 'answer:write'])]
     #[ORM\ManyToOne(inversedBy: 'answers')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Question $question = null;

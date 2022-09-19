@@ -66,7 +66,7 @@ class Tag
     private $updatedAt;
 
     //#[Groups(['write'])]
-    #[Groups(['tag:read'])]
+    #[Groups(['tag:read', 'tag:write'])]
     #[ORM\ManyToMany(targetEntity: Question::class, mappedBy: 'tags')]
     private Collection $questions;
 
