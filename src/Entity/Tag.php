@@ -35,19 +35,14 @@ use ApiPlatform\Metadata\Delete;
 #[UniqueEntity('name', message: 'This tag already exists')]
 class Tag
 {
-    // use it for the created and updated fields
-    //use TimestampableEntity;
-
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    //#[Groups(['read', 'write'])]
     #[Groups(['tag:read', 'tag:write', 'question:read'])]
     #[ORM\Column(length: 255, unique: true)]
     #[Assert\NotBlank]
-
     private ?string $name = null;
 
     /* 
@@ -56,19 +51,16 @@ class Tag
     #[ORM\Column]
     private ?\DateTimeImmutable $taggedAt;*/
 
-    //#[Groups(['read'])]
     #[Groups(['tag:read'])]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Gedmo\Timestampable(on: 'create')]
     private $createdAt;
 
-    //#[Groups(['read'])]
     #[Groups(['tag:read'])]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Gedmo\Timestampable(on: 'update')]
     private $updatedAt;
 
-    //#[Groups(['write'])]
     #[Groups(['tag:read'])]
     #[ORM\ManyToMany(targetEntity: Question::class, mappedBy: 'tags')]
     private Collection $questions;

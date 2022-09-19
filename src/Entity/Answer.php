@@ -40,55 +40,46 @@ class Answer
     public const STATUS_SPAM = 'spam';
     public const STATUS_APPROVED = 'approved';
 
-    // use it for the created and updated fields
-    //use TimestampableEntity;
-
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    //#[Groups(['read', 'write'])]
     #[Groups(['answer:read', 'answer:write'])]
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank]
     private ?string $username = null;
 
-    //#[Groups(['read', 'write'])]
     #[Groups(['answer:read', 'answer:write', 'question:read'])]
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank]
     private ?string $content = null;
 
-    //#[Groups(['read'])]
     #[Groups(['answer:read', 'answer:write'])]
     #[ORM\Column]
     private int $votes = 0;
 
-    //#[Groups(['read'])]
     #[Groups(['answer:read', 'answer:write'])]
     #[ORM\Column(length: 15)]
     #[Assert\NotBlank]
     private ?string $status = null;
 
-    //#[Groups(['read'])]
     #[Groups(['answer:read'])]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Gedmo\Timestampable(on: 'create')]
     private $createdAt;
 
-    //#[Groups(['read'])]
     #[Groups(['answer:read'])]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Gedmo\Timestampable(on: 'update')]
     private $updatedAt;
 
-    //#[Groups(['write'])]
     #[Groups(['answer:read', 'answer:write'])]
     #[ORM\ManyToOne(inversedBy: 'answers')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Question $question = null;
 
+    #[Groups(['answer:read'])]
     #[ORM\OneToMany(mappedBy: 'answer', targetEntity: Comment::class)]
     private Collection $comments;
 
