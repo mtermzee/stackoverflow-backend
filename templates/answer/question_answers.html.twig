@@ -37,6 +37,11 @@
 							</svg>
 							<span {{ stimulus_target('answer-vote', 'voteTotal') }}>{{ answer.votes }}</span>
 						</div>
+						{% for  comment in answer.comments %}
+							<button class="rounded-2xl border bg-neutral-300 mx-5 px-3 py-1 text-xs font-semibold text-left">
+								<span class="font-bold">{{ comment.username }}</span><br><span class="font-thin text-center">{{ comment.content }}</span>
+							</button>
+						{% endfor %}
 					</div>
 				</div>
 			</div>

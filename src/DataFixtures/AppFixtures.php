@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Factory\AnswerFactory;
+use App\Factory\CommentFactory;
 use App\Factory\QuestionFactory;
 use App\Factory\TagFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -15,6 +16,7 @@ class AppFixtures extends Fixture
         // $product = new Product();
         // $manager->persist($product);
         TagFactory::new()->createMany(100);
+        CommentFactory::new()->createMany(50);
 
         // create 20 questions
         $questions = QuestionFactory::new()->createMany(20, function () {
@@ -32,13 +34,15 @@ class AppFixtures extends Fixture
 
         AnswerFactory::new(function () use ($questions) {
             return [
-                'question' => $questions[array_rand($questions)]
+                'question' => $questions[array_rand($questions)],
+                'comments' => CommentFactory::randomRange(1, 2)
             ];
         })->needsApproval()->many(20)->create();
 
         AnswerFactory::createMany(100, function () use ($questions) {
             return [
-                'question' => $questions[array_rand($questions)]
+                'question' => $questions[array_rand($questions)],
+                'comments' => CommentFactory::randomRange(1, 2)
             ];
         });
 

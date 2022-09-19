@@ -6,6 +6,8 @@ use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\Repository\AnswerRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -47,16 +49,16 @@ class Answer
     private ?int $id = null;
 
     //#[Groups(['read', 'write'])]
-    #[Groups(['answer:read', 'answer:write', 'question:read'])]
-    #[ORM\Column(type: Types::TEXT)]
-    #[Assert\NotBlank]
-    private ?string $content = null;
-
-    //#[Groups(['read', 'write'])]
     #[Groups(['answer:read', 'answer:write'])]
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank]
     private ?string $username = null;
+
+    //#[Groups(['read', 'write'])]
+    #[Groups(['answer:read', 'answer:write', 'question:read'])]
+    #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank]
+    private ?string $content = null;
 
     //#[Groups(['read'])]
     #[Groups(['answer:read', 'answer:write'])]
@@ -87,21 +89,17 @@ class Answer
     #[ORM\JoinColumn(nullable: false)]
     private ?Question $question = null;
 
+    #[ORM\OneToMany(mappedBy: 'answer', targetEntity: Comment::class)]
+    private Collection $comments;
+
+    public function __construct()
+    {
+        $this->comments = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getContent(): ?string
-    {
-        return $this->content;
-    }
-
-    public function setContent(string $content): self
-    {
-        $this->content = $content;
-
-        return $this;
     }
 
     public function getUsername(): ?string
@@ -112,6 +110,18 @@ class Answer
     public function setUsername(string $username): self
     {
         $this->username = $username;
+
+        return $this;
+    }
+
+    public function getContent(): ?string
+    {
+        return $this->content;
+    }
+
+    public function setContent(string $content): self
+    {
+        $this->content = $content;
 
         return $this;
     }
@@ -216,5 +226,35 @@ class Answer
         }
 
         return (string)$this->getQuestion()->getQuestion();
+    }
+
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+            $comment->setAnswer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getAnswer() === $this) {
+                $comment->setAnswer(null);
+            }
+        }
+
+        return $this;
     }
 }
