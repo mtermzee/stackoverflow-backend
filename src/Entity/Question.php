@@ -8,6 +8,7 @@ use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
+use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use App\Repository\AnswerRepository;
 use App\Repository\QuestionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -47,7 +48,8 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 )]
 #[ApiFilter(BooleanFilter::class, properties: ['isPublished'])]
 #[ApiFilter(SearchFilter::class, properties: ['title' => 'partial', 'username' => 'exact'])]
-#[ApiFilter(RangeFilter::class, properties: ['votes'])]
+//#[ApiFilter(RangeFilter::class, properties: ['votes'])]
+#[ApiFilter(OrderFilter::class, properties: ['votes' => 'DESC'])]
 #[ApiFilter(PropertyFilter::class)]
 #[ApiFilter(QuestionSearchFilter::class)]
 #[ORM\Entity(repositoryClass: QuestionRepository::class)]

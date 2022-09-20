@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
+use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use App\Repository\AnswerRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -33,6 +34,7 @@ use ApiPlatform\Metadata\Delete;
     denormalizationContext: ['groups' => ['answer:write'], 'swagger_definition_name' => 'Write'],
 )]
 #[ApiFilter(PropertyFilter::class)]
+#[ApiFilter(OrderFilter::class, properties: ['votes' => 'DESC'])]
 #[ORM\Entity(repositoryClass: AnswerRepository::class)]
 class Answer
 {
