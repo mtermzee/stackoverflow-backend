@@ -26,6 +26,7 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use ApiPlatform\Metadata\Delete;
+use App\ApiResource\QuestionSearchFilter;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 
 #[ApiResource(
@@ -48,6 +49,7 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 #[ApiFilter(SearchFilter::class, properties: ['title' => 'partial', 'username' => 'exact'])]
 #[ApiFilter(RangeFilter::class, properties: ['votes'])]
 #[ApiFilter(PropertyFilter::class)]
+#[ApiFilter(QuestionSearchFilter::class)]
 #[ORM\Entity(repositoryClass: QuestionRepository::class)]
 class Question
 {
