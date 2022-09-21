@@ -6,6 +6,7 @@ use App\Factory\AnswerFactory;
 use App\Factory\CommentFactory;
 use App\Factory\QuestionFactory;
 use App\Factory\TagFactory;
+use App\Factory\UserFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -45,6 +46,9 @@ class AppFixtures extends Fixture
                 'comments' => CommentFactory::randomRange(1, 2)
             ];
         });
+
+        UserFactory::createOne(['email' => 'mtermzee@gmail.com']);
+        UserFactory::new()->createMany(10);
 
         $manager->flush();
     }
