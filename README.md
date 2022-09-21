@@ -8,7 +8,9 @@ Die suche funktioniert so -> answer und question
 
 There is Vote system and Comments for Answers "there is no vote for Comments"
 
-bis 21.09.2022 weiter pushes in gitlab
+Goal now to have Authenticators.
+
+in 21.09.2022 wwurde in gitlab gepusht
 
 ### symfony server
 ```
