@@ -34,8 +34,9 @@
 						<span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
 					</a>
 					<div class="flex items-center">
-						<a href="tel:5541251234" class="mr-6 text-sm font-medium text-gray-500 dark:text-white hover:underline">(555) 412-1234</a>
-						<a href="{{ path('app_login') }}" class="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline">Login</a>
+						<a href="tel:5541251234" class="mr-6 text-sm font-medium text-gray-500 dark:text-white hover:underline">{% if app.user %}{{ app.user.email }}{% endif %}
+						</a>
+						<a href="/{{ app.user ? 'logout' : 'login' }}" class="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ app.user ? 'Logout' : 'Login' }}</a>
 					</div>
 				</div>
 			</nav>

@@ -37,12 +37,13 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
     {
         // get always from the name of the input field
         $email = $request->request->get('email');
-        // if we do not have hashed password, we can use the password field
-        $password = $request->request->get('password');
 
         $request->getSession()->set(Security::LAST_USERNAME, $email);
 
-        return new Passport(
+        // if we do not have hashed password, we can use the password field
+        //$password = $request->request->get('password');
+
+        /*return new Passport(
             new UserBadge($email),
             new CustomCredentials(function ($credentials, User $user) {
                 dd($credentials, $user);
@@ -50,16 +51,16 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
             [
                 new CsrfTokenBadge('authenticate', $request->get('_csrf_token')),
             ]
-        );
+        );*/
 
         // when we have hashed password
-        /*return new Passport(
+        return new Passport(
             new UserBadge($email),
             new PasswordCredentials($request->request->get('password', '')),
             [
                 new CsrfTokenBadge('authenticate', $request->request->get('_csrf_token')),
             ]
-        );*/
+        );
 
         //dd('authenticate');
     }
@@ -72,7 +73,8 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 
         // For example:
         // return new RedirectResponse($this->urlGenerator->generate('some_route'));
-        throw new \Exception('TODO: provide a valid redirect inside ' . __FILE__);
+        //throw new \Exception('TODO: provide a valid redirect inside ' . __FILE__);
+        return new RedirectResponse($this->urlGenerator->generate('app_question'));
     }
 
     protected function getLoginUrl(Request $request): string
