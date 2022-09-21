@@ -8,6 +8,8 @@ Die suche funktioniert so -> answer und question
 
 There is Vote system and Comments for Answers "there is no vote for Comments"
 
+bis 21.09.2022 weiter pushes in gitlab
+
 ### symfony server
 ```
 composer install
