@@ -9,6 +9,7 @@ use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Doctrine\Orm\Filter\ExistsFilter;
 use App\Repository\AnswerRepository;
 use App\Repository\QuestionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -50,6 +51,7 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 #[ApiFilter(SearchFilter::class, properties: ['title' => 'partial', 'username' => 'exact'])]
 //#[ApiFilter(RangeFilter::class, properties: ['votes'])]
 #[ApiFilter(OrderFilter::class, properties: ['votes' => 'DESC'])]
+#[ApiFilter(ExistsFilter::class, properties: ['answers'])]
 #[ApiFilter(PropertyFilter::class)]
 #[ApiFilter(QuestionSearchFilter::class)]
 #[ORM\Entity(repositoryClass: QuestionRepository::class)]
