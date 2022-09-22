@@ -34,7 +34,10 @@
 						<span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
 					</a>
 					<div class="flex items-center">
-						<a href="tel:5541251234" class="mr-6 text-sm font-medium text-gray-500 dark:text-white hover:underline">{% if app.user %}{{ app.user.email }}{% endif %}
+						<a href="tel:5541251234" class="mr-6 text-sm font-medium text-gray-500 dark:text-white hover:underline">
+							{% if app.user %}
+								{{ app.user.email }}
+							{% endif %}
 						</a>
 						<a href="/{{ app.user ? 'logout' : 'login' }}" class="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ app.user ? 'Logout' : 'Login' }}</a>
 					</div>
@@ -47,9 +50,11 @@
 							<li>
 								<a href="{{ path('app_question') }}" class="text-gray-900 dark:text-white hover:underline" aria-current="page">Home</a>
 							</li>
-							<li>
-								<a href="{{ path('app_popular_answers') }}" class="text-gray-900 dark:text-white hover:underline">Answers</a>
-							</li>
+							{% if is_granted('ROLE_ADMIN') %}
+								<li>
+									<a href="{{ path('app_popular_answers') }}" class="text-gray-900 dark:text-white hover:underline">Admin Answers</a>
+								</li>
+							{% endif %}
 							<li>
 								<a href="#" class="text-gray-900 dark:text-white hover:underline">Team</a>
 							</li>
