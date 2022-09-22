@@ -39,30 +39,6 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 
         $request->getSession()->set(Security::LAST_USERNAME, $email);
 
-        // if we do not have hashed password, we can use the password field
-        //$password = $request->request->get('password');
-
-        /*Custom User Query & Credentials
-        return new Passport(
-            new UserBadge($email, function ($userIdentifer) {
-                $user = $this->userRepository->findOneBy(['email' => $userIdentifer]);
-
-                if (!$user) {
-                    throw new UserNotFoundException();
-                }
-
-                return $user;
-            }),
-            new CustomCredentials(function ($credentials, User $user) {
-                dd($credentials, $user);
-            }, $password),
-            [
-                new CsrfTokenBadge('authenticate', $request->get('_csrf_token')),
-            ]
-        );*/
-
-        //dd('authenticate');
-
         // when we have hashed password
         return new Passport(
             new UserBadge($email),
