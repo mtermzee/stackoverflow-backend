@@ -49,12 +49,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     private $plainPassword;
 
+    #[Groups(['user:read'])]
     #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Question::class)]
     private Collection $questions;
 
+    #[Groups(['user:read'])]
     #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Answer::class)]
     private Collection $answers;
 
+    #[Groups(['user:read'])]
     #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Comment::class)]
     private Collection $comments;
 
