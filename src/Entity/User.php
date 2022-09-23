@@ -6,6 +6,9 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\DBAL\Types\Types;
+use Carbon\Carbon;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -29,6 +32,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups(['user:read'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $firstName = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Gedmo\Timestampable(on: 'create')]
+    private $joinedAt;
 
     #[Groups(['user:read'])]
     #[ORM\Column]
@@ -72,6 +79,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->email = $email;
 
+        return $this;
+    }
+
+    public function getJoinedAt(): ?\DateTimeInterface
+    {
+        return $this->joinedAt;
+    }
+
+    #[Groups(['user:read'])]
+    public function getJoinedAtAgo(): string
+    {
+        return Carbon::instance($this->getJoinedAt())->diffForHumans();
+    }
+
+    public function setJoinedAt(?\DateTimeInterface $joinedAt): self
+    {
+        $this->joinedAt = $joinedAt;
         return $this;
     }
 

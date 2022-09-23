@@ -17,7 +17,8 @@
 					</h2>
 					<small class="text-sm text-gray-700">{{ answer.createdAt|ago }}</small>
 				</div>
-				<p class="text-gray-700">Joined 12 SEP 2012.
+				<p class="text-gray-700">Joined At
+					{{ answer.owner.joinedAt|date('Y-m-d') }}
 				</p>
 				<p class="mt-3 text-gray-700 text-sm">
 					{{ answer.content }}
