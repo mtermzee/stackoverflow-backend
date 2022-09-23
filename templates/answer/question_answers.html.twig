@@ -10,10 +10,10 @@
 		class="flex bg-white shadow-lg rounded-lg md:mx-auto my-5 w-2xl">
 		<!--horizantil margin is just for display-->
 		<div class="flex items-start px-4 py-6">
-			<img class="w-12 h-12 rounded-full object-cover mr-4 shadow" src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="avatar">
+			<img class="w-12 h-12 rounded-full object-cover mr-4 shadow" src="{{ answer.owner.getAvatarURL }}" alt="avatar">
 			<div class="">
 				<div class="flex items-center justify-between">
-					<h2 class="text-lg font-semibold text-gray-900 -mt-1">{{ answer.username }}
+					<h2 class="text-lg font-semibold text-gray-900 -mt-1">{{ answer.owner.getDisplayName }}
 					</h2>
 					<small class="text-sm text-gray-700">{{ answer.createdAt|ago }}</small>
 				</div>
@@ -41,7 +41,7 @@
 						{% endif %}
 						{% for  comment in answer.comments %}
 							<button class="rounded-2xl border bg-neutral-300 mx-5 px-3 py-1 text-xs font-semibold text-left">
-								<span class="font-bold">{{ comment.username }}</span><br><span class="font-thin text-center">{{ comment.content }}</span>
+								<span class="font-bold">{{ comment.owner.getDisplayName}}</span><br><span class="font-thin text-center">{{ comment.content }}</span>
 							</button>
 						{% endfor %}
 					</div>

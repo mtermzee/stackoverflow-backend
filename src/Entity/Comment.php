@@ -35,11 +35,6 @@ class Comment
     #[ORM\Column]
     private ?int $id = null;
 
-    #[Groups(['comment:read', 'comment:write'])]
-    #[ORM\Column(length: 255)]
-    #[Assert\NotBlank]
-    private ?string $username = null;
-
     #[Groups(['comment:read', 'comment:write', 'answer:read'])]
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank]
@@ -59,21 +54,13 @@ class Comment
     #[ORM\ManyToOne(inversedBy: 'comments', fetch: 'EXTRA_LAZY'), OrderBy(['createdAt' => 'DESC'])]
     private ?Answer $answer = null;
 
+    #[ORM\ManyToOne(inversedBy: 'comments')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $owner = null;
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getUsername(): ?string
-    {
-        return $this->username;
-    }
-
-    public function setUsername(string $username): self
-    {
-        $this->username = $username;
-
-        return $this;
     }
 
     public function getContent(): ?string
@@ -120,6 +107,18 @@ class Comment
     public function setAnswer(?Answer $answer): self
     {
         $this->answer = $answer;
+
+        return $this;
+    }
+
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(?User $owner): self
+    {
+        $this->owner = $owner;
 
         return $this;
     }

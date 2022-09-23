@@ -44,11 +44,11 @@ final class AnswerFactory extends ModelFactory
     {
         return [
             // TODO add your default values here (https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#model-factories)
-            'username' => self::faker()->username(),
             'content' => self::faker()->text(),
             'votes' => self::faker()->numberBetween(-20, 50),
             'status' => Answer::STATUS_APPROVED,
             'question' => QuestionFactory::new()->unpublished(),
+            'owner' => UserFactory::new(),
             //'question' => QuestionFactory::random()
             // 'createdAt' => self::faker()->dateTimeBetween('-1 year'), // TODO add DATETIME ORM type manually
             //'updatedAt' => null, // TODO add DATETIME ORM type manually

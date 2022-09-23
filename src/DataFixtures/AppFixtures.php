@@ -21,7 +21,13 @@ class AppFixtures extends Fixture
         UserFactory::new()->createMany(10);
 
         TagFactory::new()->createMany(100);
-        CommentFactory::new()->createMany(50);
+
+        CommentFactory::new()->createMany(50, function () {
+            // we user return to rlate defrrent id-tags to defrrent questions
+            return [
+                'owner' => UserFactory::random(),
+            ];
+        });
 
         // create 20 questions
         $questions = QuestionFactory::new()->createMany(20, function () {
@@ -41,14 +47,16 @@ class AppFixtures extends Fixture
         AnswerFactory::new(function () use ($questions) {
             return [
                 'question' => $questions[array_rand($questions)],
-                'comments' => CommentFactory::randomRange(1, 2)
+                'comments' => CommentFactory::randomRange(1, 2),
+                'owner' => UserFactory::random(),
             ];
         })->needsApproval()->many(20)->create();
 
         AnswerFactory::createMany(100, function () use ($questions) {
             return [
                 'question' => $questions[array_rand($questions)],
-                'comments' => CommentFactory::randomRange(1, 2)
+                'comments' => CommentFactory::randomRange(1, 2),
+                'owner' => UserFactory::random(),
             ];
         });
 

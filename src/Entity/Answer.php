@@ -47,11 +47,6 @@ class Answer
     #[ORM\Column]
     private ?int $id = null;
 
-    #[Groups(['answer:read', 'answer:write'])]
-    #[ORM\Column(length: 255)]
-    #[Assert\NotBlank]
-    private ?string $username = null;
-
     #[Groups(['answer:read', 'answer:write', 'question:read'])]
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank]
@@ -85,6 +80,10 @@ class Answer
     #[ORM\OneToMany(mappedBy: 'answer', targetEntity: Comment::class)]
     private Collection $comments;
 
+    #[ORM\ManyToOne(inversedBy: 'answers')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $owner = null;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -93,18 +92,6 @@ class Answer
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getUsername(): ?string
-    {
-        return $this->username;
-    }
-
-    public function setUsername(string $username): self
-    {
-        $this->username = $username;
-
-        return $this;
     }
 
     public function getContent(): ?string
@@ -247,6 +234,18 @@ class Answer
                 $comment->setAnswer(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(?User $owner): self
+    {
+        $this->owner = $owner;
 
         return $this;
     }
