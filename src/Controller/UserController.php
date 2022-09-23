@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/api')]
 class UserController extends UserHelberController
 {
-    #[Route('/me', name: 'user')]
+    #[Route('/me', name: 'app_user_api_me')]
     #[IsGranted('IS_AUTHENTICATED_REMEMBERED')]
     public function apiMe()
     {
