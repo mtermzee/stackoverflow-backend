@@ -16,6 +16,10 @@ class AppFixtures extends Fixture
     {
         // $product = new Product();
         // $manager->persist($product);
+
+        UserFactory::createOne(['email' => 'm.termzee@gmail.com', 'roles' => ['ROLE_ADMIN']]);
+        UserFactory::new()->createMany(10);
+
         TagFactory::new()->createMany(100);
         CommentFactory::new()->createMany(50);
 
@@ -24,7 +28,8 @@ class AppFixtures extends Fixture
             // we user return to rlate defrrent id-tags to defrrent questions
             return [
                 // realte tags to the 20.questions randomly
-                'tags' => TagFactory::randomRange(0, 5)
+                'tags' => TagFactory::randomRange(0, 5),
+                'owner' => UserFactory::random(),
             ];
         });
 
@@ -46,9 +51,6 @@ class AppFixtures extends Fixture
                 'comments' => CommentFactory::randomRange(1, 2)
             ];
         });
-
-        UserFactory::createOne(['email' => 'm.termzee@gmail.com', 'roles' => ['ROLE_ADMIN']]);
-        UserFactory::new()->createMany(10);
 
         $manager->flush();
     }

@@ -54,6 +54,7 @@ final class QuestionFactory extends ModelFactory
             'askedAt' =>  self::faker()->dateTimeBetween('-100 days', '-1 minute'),
             'votes' => rand(-20, 50),
             'isPublished' => self::faker()->boolean(80),
+            'owner' => UserFactory::new(),
             //'createdAt' => self::faker()->dateTimeBetween('-1 year'),
             //'updatedAt' => null, // TODO add DATETIME ORM type manually
         ];
