@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class AnswerController extends AbstractController
 {
@@ -23,8 +24,15 @@ class AnswerController extends AbstractController
 
     //commentVote
     #[Route('/answers/{id}/vote', name: 'answer_vote', methods: ['POST'])]
+    #[IsGranted('IS_AUTHENTICATED_REMEMBERED')]
     public function commentVote(Answer $answer, LoggerInterface $logger, Request $request, EntityManagerInterface $entityManager): Response
     {
+        // get user
+        $logger->info('{user} is voting on answer {answer}', [
+            'user' => $this->getUser()->getUserIdentifier(),
+            'answer' => $answer->getId(),
+        ]);
+
         // todo use id to query database for comment
         $data = json_decode($request->getContent(), true);
         $direction = $data['direction'] ?? 'up';

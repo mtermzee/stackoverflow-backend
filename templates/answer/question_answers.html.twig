@@ -24,19 +24,21 @@
 				</p>
 				<div class="mt-4 flex items-center">
 					<div class="flex text-gray-700 text-sm mr-3">
-						<div class="vote-arrows" {{ stimulus_controller('answer-vote', { url: path('answer_vote', { id: answer.id } ) }) }}>
-							<button class="vote-up btn btn-link" name="direction" value="up" {{ stimulus_action('answer-vote', 'clickVote') }}>
-								<i class="far fa-arrow-alt-circle-up"></i>
-							</button>
-							<button class="vote-down btn btn-link" name="direction" value="down" {{ stimulus_action('answer-vote', 'clickVote') }}>
-								<i class="far fa-arrow-alt-circle-down"></i>
-							</button>
+						{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+							<div class="vote-arrows" {{ stimulus_controller('answer-vote', { url: path('answer_vote', { id: answer.id } ) }) }}>
+								<button class="vote-up btn btn-link" name="direction" value="up" {{ stimulus_action('answer-vote', 'clickVote') }}>
+									<i class="far fa-arrow-alt-circle-up"></i>
+								</button>
+								<button class="vote-down btn btn-link" name="direction" value="down" {{ stimulus_action('answer-vote', 'clickVote') }}>
+									<i class="far fa-arrow-alt-circle-down"></i>
+								</button>
 
-							<svg fill="none" viewbox="0 0 24 24" class="w-4 h-4 mr-1" stroke="currentColor">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-							</svg>
-							<span {{ stimulus_target('answer-vote', 'voteTotal') }}>{{ answer.votes }}</span>
-						</div>
+								<svg fill="none" viewbox="0 0 24 24" class="w-4 h-4 mr-1" stroke="currentColor">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+								</svg>
+								<span {{ stimulus_target('answer-vote', 'voteTotal') }}>{{ answer.votes }}</span>
+							</div>
+						{% endif %}
 						{% for  comment in answer.comments %}
 							<button class="rounded-2xl border bg-neutral-300 mx-5 px-3 py-1 text-xs font-semibold text-left">
 								<span class="font-bold">{{ comment.username }}</span><br><span class="font-thin text-center">{{ comment.content }}</span>
