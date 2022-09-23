@@ -65,12 +65,6 @@ class Question
     #[ORM\Column]
     private ?int $id = null;
 
-    // #[Groups(['read', 'write'])]
-    #[Groups(['question:read', 'question:write'])]
-    #[ORM\Column(length: 255)]
-    #[Assert\NotBlank]
-    private ?string $username = null;
-
     //#[Groups(['read', 'write'])]
     #[Groups(['question:read', 'question:write'])]
     #[ORM\Column(length: 255)]
@@ -142,18 +136,6 @@ class Question
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getuserName(): ?string
-    {
-        return $this->username;
-    }
-
-    public function setuserName(string $username): self
-    {
-        $this->username = $username;
-
-        return $this;
     }
 
     public function getTitle(): ?string
