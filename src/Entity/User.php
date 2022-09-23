@@ -7,22 +7,28 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    #[Groups(['user:read'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Groups(['user:read'])]
     #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
 
+    #[Groups(['user:read'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $firstName = null;
 
+    #[Groups(['user:read'])]
     #[ORM\Column]
     private array $roles = [];
 
@@ -116,6 +122,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    #[Groups(['user:read'])]
+    #[SerializedName('displayNameEmail')]
+    public function getDisplayName(): string
+    {
+        return $this->getFirstName() ?? $this->getEmail();
+    }
+
     public function getPlainPassword(): ?string
     {
         return $this->plainPassword;
@@ -126,5 +139,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->plainPassword = $plainPassword;
 
         return $this;
+    }
+
+    #[Groups(['user:read'])]
+    public function getAvatarURL(): ?string
+    {
+        // . urlencode($this->getDisplayName()
+        return 'https://ui-avatars.com/api?'  . http_build_query([
+            'name' => $this->getDisplayName(),
+            'background' => 'random',
+            'size' => 64,
+        ]);
     }
 }
