@@ -12,6 +12,6 @@ class UserController extends UserHelberController
     #[IsGranted('IS_AUTHENTICATED_REMEMBERED')]
     public function apiMe()
     {
-        return $this->json($this->getUser(), 200, [], ['groups' => 'user:read']);
+        return $this->json($this->getUser(), 200, [], ['groups' => 'userAPI:read']);
     }
 }

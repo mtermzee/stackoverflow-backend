@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -9,27 +10,46 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\DBAL\Types\Types;
 use Carbon\Carbon;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\SerializedName;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
+use ApiPlatform\Metadata\Delete;
 
+
+#[ApiResource(
+    operations: [
+        new Get(),
+        new GetCollection(),
+        new Post(),
+        new Put(),
+    ],
+    normalizationContext: ['groups' => ['user:read']],
+    denormalizationContext: ['groups' => ['user:write']],
+)]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    #[Groups(['user:read'])]
+    #[Groups(['userAPI:read'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[Groups(['user:read'])]
+    #[Groups(['userAPI:read', 'user:read', 'user:write'])]
     #[ORM\Column(length: 180, unique: true)]
+    #[Assert\NotBlank]
+    #[Assert\Email]
     private ?string $email = null;
 
-    #[Groups(['user:read'])]
+    #[Groups(['userAPI:read', 'user:read', 'user:write'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $firstName = null;
 
@@ -37,27 +57,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Gedmo\Timestampable(on: 'create')]
     private $joinedAt;
 
-    #[Groups(['user:read'])]
+    #[Groups(['userAPI:read'])]
     #[ORM\Column]
     private array $roles = [];
 
     /**
      * @var string The hashed password
      */
+    #[Groups(['user:write'])]
     #[ORM\Column]
     private ?string $password = null;
 
     private $plainPassword;
 
-    #[Groups(['user:read'])]
+    #[Groups(['userAPI:read'])]
     #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Question::class)]
     private Collection $questions;
 
-    #[Groups(['user:read'])]
+    #[Groups(['userAPI:read'])]
     #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Answer::class)]
     private Collection $answers;
 
-    #[Groups(['user:read'])]
+    #[Groups(['userAPI:read'])]
     #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Comment::class)]
     private Collection $comments;
 
@@ -90,7 +111,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->joinedAt;
     }
 
-    #[Groups(['user:read'])]
+    #[Groups(['userAPI:read'])]
     public function getJoinedAtAgo(): string
     {
         return Carbon::instance($this->getJoinedAt())->diffForHumans();
@@ -167,7 +188,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    #[Groups(['user:read'])]
+    #[Groups(['userAPI:read'])]
     #[SerializedName('displayNameEmail')]
     public function getDisplayName(): string
     {
@@ -186,7 +207,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    #[Groups(['user:read'])]
+    #[Groups(['userAPI:read'])]
     public function getAvatarURL(): ?string
     {
         // . urlencode($this->getDisplayName()

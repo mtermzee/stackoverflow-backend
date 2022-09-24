@@ -35,7 +35,7 @@ class Comment
     #[ORM\Column]
     private ?int $id = null;
 
-    #[Groups(['comment:read', 'comment:write', 'answer:read', 'user:read'])]
+    #[Groups(['comment:read', 'comment:write', 'answer:read', 'userAPI:read'])]
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank]
     private ?string $content = null;
