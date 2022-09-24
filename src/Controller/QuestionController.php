@@ -43,6 +43,17 @@ class QuestionController extends AbstractController
         ]);
     }
 
+
+    #[Route('/questions/edit/{slug}', name: 'app_question_edit')]
+    public function edit(Question $question): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
+
+        return $this->render('question/edit.html.twig', [
+            'question' => $question,
+        ]);
+    }
+
     #[Route('/questions/{slug}/vote', name: 'app_question_vote', methods: ['POST'])]
     public function questionVoteCount(Question $question, Request $request, EntityManagerInterface $entityManager)
     {
