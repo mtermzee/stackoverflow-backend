@@ -37,7 +37,6 @@ use ApiPlatform\Metadata\Delete;
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    #[Groups(['userAPI:read'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -57,7 +56,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Gedmo\Timestampable(on: 'create')]
     private $joinedAt;
 
-    #[Groups(['userAPI:read'])]
+    #[Groups(['userAPI:read', 'user:read'])]
     #[ORM\Column]
     private array $roles = [];
 
@@ -70,15 +69,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     private $plainPassword;
 
-    #[Groups(['userAPI:read'])]
+    #[Groups(['userAPI:read', 'user:read'])]
     #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Question::class)]
     private Collection $questions;
 
-    #[Groups(['userAPI:read'])]
+    #[Groups(['userAPI:read', 'user:read'])]
     #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Answer::class)]
     private Collection $answers;
 
-    #[Groups(['userAPI:read'])]
+    #[Groups(['userAPI:read', 'user:read'])]
     #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Comment::class)]
     private Collection $comments;
 
@@ -111,7 +110,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->joinedAt;
     }
 
-    #[Groups(['userAPI:read'])]
+    #[Groups(['userAPI:read', 'user:read'])]
     public function getJoinedAtAgo(): string
     {
         return Carbon::instance($this->getJoinedAt())->diffForHumans();
@@ -188,7 +187,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    #[Groups(['userAPI:read'])]
+    #[Groups(['userAPI:read', 'user:read'])]
     #[SerializedName('displayNameEmail')]
     public function getDisplayName(): string
     {
@@ -207,7 +206,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    #[Groups(['userAPI:read'])]
+    #[Groups(['userAPI:read', 'user:read'])]
     public function getAvatarURL(): ?string
     {
         // . urlencode($this->getDisplayName()

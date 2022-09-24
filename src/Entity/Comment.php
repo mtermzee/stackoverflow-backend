@@ -54,6 +54,7 @@ class Comment
     #[ORM\ManyToOne(inversedBy: 'comments', fetch: 'EXTRA_LAZY'), OrderBy(['createdAt' => 'DESC'])]
     private ?Answer $answer = null;
 
+    #[Groups(['comment:read', 'comment:write'])]
     #[ORM\ManyToOne(inversedBy: 'comments')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $owner = null;

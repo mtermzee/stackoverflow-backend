@@ -80,6 +80,7 @@ class Answer
     #[ORM\OneToMany(mappedBy: 'answer', targetEntity: Comment::class)]
     private Collection $comments;
 
+    #[Groups(['answer:read', 'answer:write'])]
     #[ORM\ManyToOne(inversedBy: 'answers')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $owner = null;

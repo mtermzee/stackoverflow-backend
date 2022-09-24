@@ -123,6 +123,7 @@ class Question
     #[ORM\ManyToMany(targetEntity: Tag::class, fetch: 'EXTRA_LAZY', inversedBy: 'questions')]
     private Collection $tags;
 
+    #[Groups(['question:read', 'question:write'])]
     #[ORM\ManyToOne(inversedBy: 'questions')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $owner = null;
