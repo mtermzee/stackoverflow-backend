@@ -12,9 +12,16 @@ There is User Authenticators.
 
 Next Goal is API platfrom Security -> for admin roles and user roles
 
-### symfony server
+### for new install
 ```
 composer install
+npm install
+php bin/console cache:clear
+npm run build
+```
+
+### symfony server
+```
 symfony server:start -d 
 symfony server:stop
 symfony server:start -d  --allow-http
@@ -24,12 +31,4 @@ php -S 127.0.0.1:8000 -t public
 ### run server
 ```
 npm run watch
-```
-
-### for new install
-```
-composer install
-npm install
-php bin/console cache:clear
-npm run build
 ```
