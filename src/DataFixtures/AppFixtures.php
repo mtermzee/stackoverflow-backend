@@ -18,9 +18,19 @@ class AppFixtures extends Fixture
         // $manager->persist($product);
 
         UserFactory::createOne(['email' => 'm.termzee@gmail.com', 'roles' => ['ROLE_ADMIN']]);
+        $admin = UserFactory::new()->createMany(2, function () {
+            return [
+                'roles' => ['ROLE_ADMIN']
+            ];
+        });
+
         UserFactory::new()->createMany(10);
 
-        TagFactory::new()->createMany(100);
+        TagFactory::new(function () use ($admin) {
+            return [
+                'owner' => $admin[array_rand($admin)],
+            ];
+        })->createMany(50);
 
         CommentFactory::new()->createMany(50, function () {
             // we user return to rlate defrrent id-tags to defrrent questions

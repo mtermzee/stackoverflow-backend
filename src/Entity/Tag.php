@@ -65,6 +65,11 @@ class Tag
     #[ORM\ManyToMany(targetEntity: Question::class, mappedBy: 'tags')]
     private Collection $questions;
 
+    #[Groups(['tag:read', 'tag:write'])]
+    #[ORM\ManyToOne(inversedBy: 'tags')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $owner = null;
+
 
     public function __construct()
     {
@@ -84,6 +89,7 @@ class Tag
 
     public function setName(string $name): self
     {
+        //if ($this->owner->getRoles()[0] === 'ROLE_ADMIN') 
         $this->name = $name;
 
         return $this;
@@ -152,6 +158,18 @@ class Tag
         if ($this->questions->removeElement($question)) {
             $question->removeTag($this);
         }
+
+        return $this;
+    }
+
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(?User $owner): self
+    {
+        $this->owner = $owner;
 
         return $this;
     }

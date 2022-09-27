@@ -81,11 +81,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Comment::class)]
     private Collection $comments;
 
+    #[Groups(['userAPI:read', 'user:read'])]
+    #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Tag::class)]
+    private Collection $tags;
+
     public function __construct()
     {
         $this->questions = new ArrayCollection();
         $this->answers = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->tags = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -301,6 +306,38 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($comment->getOwner() === $this) {
                 $comment->setOwner(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Tag>
+     */
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
+
+    public function addTag(Tag $tag): self
+    {
+        if (!$this->tags->contains($tag)) {
+            $this->tags->add($tag);
+            $tag->setOwner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTag(Tag $tag): self
+    {
+        //if ($this->getRoles() === 'ROLE_ADMIN')
+
+        if ($this->tags->removeElement($tag)) {
+            // set the owning side to null (unless already changed)
+            if ($tag->getOwner() === $this) {
+                $tag->setOwner(null);
             }
         }
 
