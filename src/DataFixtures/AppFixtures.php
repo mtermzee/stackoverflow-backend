@@ -23,8 +23,7 @@ class AppFixtures extends Fixture
                 'roles' => ['ROLE_ADMIN']
             ];
         });
-
-        UserFactory::new()->createMany(10);
+        UserFactory::new()->createMany(5);
 
         TagFactory::new(function () use ($admin) {
             return [
@@ -32,19 +31,21 @@ class AppFixtures extends Fixture
             ];
         })->createMany(50);
 
+        /* if you would using this, you should uncomment "comments"
         CommentFactory::new()->createMany(50, function () {
             // we user return to rlate defrrent id-tags to defrrent questions
             return [
                 'owner' => UserFactory::random(),
             ];
         });
+        */
 
         // create 20 questions
         $questions = QuestionFactory::new()->createMany(20, function () {
             // we user return to rlate defrrent id-tags to defrrent questions
             return [
                 // realte tags to the 20.questions randomly
-                'tags' => TagFactory::randomRange(0, 5),
+                'tags' => TagFactory::randomRange(1, 5),
                 'owner' => UserFactory::random(),
             ];
         });
@@ -54,18 +55,26 @@ class AppFixtures extends Fixture
             ->unpublished()
             ->createMany(5);
 
-        AnswerFactory::new(function () use ($questions) {
+        $answers = AnswerFactory::new(function () use ($questions) {
             return [
                 'question' => $questions[array_rand($questions)],
-                'comments' => CommentFactory::randomRange(1, 2),
+                //'comments' => CommentFactory::randomRange(1, 2),
                 'owner' => UserFactory::random(),
             ];
         })->needsApproval()->many(20)->create();
 
-        AnswerFactory::createMany(100, function () use ($questions) {
+        $answers = AnswerFactory::createMany(100, function () use ($questions) {
             return [
                 'question' => $questions[array_rand($questions)],
-                'comments' => CommentFactory::randomRange(1, 2),
+                //'comments' => CommentFactory::randomRange(1, 2),
+                'owner' => UserFactory::random(),
+            ];
+        });
+
+        CommentFactory::new()->createMany(50, function () use ($answers) {
+            // we user return to rlate defrrent id-tags to defrrent questions
+            return [
+                'answer' => $answers[array_rand($answers)],
                 'owner' => UserFactory::random(),
             ];
         });

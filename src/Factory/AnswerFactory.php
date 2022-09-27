@@ -47,8 +47,9 @@ final class AnswerFactory extends ModelFactory
             'content' => self::faker()->text(),
             'votes' => self::faker()->numberBetween(-20, 50),
             'status' => Answer::STATUS_APPROVED,
-            'question' => QuestionFactory::new()->unpublished(),
+            'question' => QuestionFactory::new(),
             'owner' => UserFactory::new(),
+            //'question' => QuestionFactory::new()->unpublished(),
             //'question' => QuestionFactory::random()
             // 'createdAt' => self::faker()->dateTimeBetween('-1 year'), // TODO add DATETIME ORM type manually
             //'updatedAt' => null, // TODO add DATETIME ORM type manually

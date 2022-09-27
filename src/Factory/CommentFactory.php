@@ -40,6 +40,7 @@ final class CommentFactory extends ModelFactory
         return [
             // TODO add your default values here (https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#model-factories)
             'content' => self::faker()->text(),
+            'answer' => AnswerFactory::new(),
             'owner' => UserFactory::new(),
             //'createdAt' => null, // TODO add DATETIME ORM type manually
             //'updatedAt' => null, // TODO add DATETIME ORM type manually
