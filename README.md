@@ -10,7 +10,7 @@ There is Vote system and Comments for Answers "there is no vote for Comments"
 
 There is User Authenticators.
 
-Next Goal is API platfrom Security
+Next Goal is API platfrom Security -> for admin roles and user roles
 
 ### symfony server
 ```
