@@ -8,9 +8,9 @@ Die suche funktioniert so -> answer und question
 
 There is Vote system and Comments for Answers "there is no vote for Comments"
 
-Goal now to have Authenticators.
+There is User Authenticators.
 
-in 21.09.2022 wwurde in gitlab gepusht
+Next Goal is API platfrom Security
 
 ### symfony server
 ```
