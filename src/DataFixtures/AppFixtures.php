@@ -51,9 +51,9 @@ class AppFixtures extends Fixture
         });
 
         // add unpulished questions
-        QuestionFactory::new()
+        /* QuestionFactory::new()
             ->unpublished()
-            ->createMany(5);
+            ->createMany(5);*/
 
         $answers = AnswerFactory::new(function () use ($questions) {
             return [
