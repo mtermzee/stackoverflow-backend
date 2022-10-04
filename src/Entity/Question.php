@@ -91,13 +91,13 @@ class Question
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $askedAt = null;
 
-    //#[Groups(['read'])]
+    // #[Groups(['read'])]
     #[Groups(['question:read', 'question:write'])]
     #[ORM\Column]
     private int $votes = 0;
 
     // #[Groups(['read'])]
-    #[Groups(['question:read'])]
+    #[Groups(['question:read', 'question:write'])]
     #[ORM\Column]
     private ?bool $isPublished = false;
 
@@ -107,7 +107,7 @@ class Question
     #[Gedmo\Timestampable(on: 'create')]
     private $createdAt;
 
-    //#[Groups(['read'])]
+    // #[Groups(['read'])]
     #[Groups(['question:read'])]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Gedmo\Timestampable(on: 'update')]
