@@ -16,6 +16,7 @@
         "gedmo/doctrine-extensions": "^3.8",
         "knplabs/knp-markdown-bundle": "^1.10",
         "knplabs/knp-time-bundle": "^1.19",
+        "lexik/jwt-authentication-bundle": "^2.16",
         "nelmio/cors-bundle": "^2.2",
         "nesbot/carbon": "^2.62",
         "pagerfanta/doctrine-orm-adapter": "^3.6",
