@@ -22,7 +22,6 @@ use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use ApiPlatform\Metadata\Delete;
 
-
 #[ApiResource(
     operations: [
         new Get(),
@@ -50,7 +49,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[Groups(['userAPI:read', 'user:read', 'user:write'])]
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $firstName = null;
+    private ?string $name = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Gedmo\Timestampable(on: 'create')]
@@ -180,14 +179,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->plainPassword = null;
     }
 
-    public function getFirstName(): ?string
+    public function getName(): ?string
     {
-        return $this->firstName;
+        return $this->name;
     }
 
-    public function setFirstName(?string $firstName): self
+    public function setName(?string $name): self
     {
-        $this->firstName = $firstName;
+        $this->name = $name;
 
         return $this;
     }
@@ -196,7 +195,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[SerializedName('displayNameEmail')]
     public function getDisplayName(): string
     {
-        return $this->getFirstName() ?? $this->getEmail();
+        return $this->getName() ?? $this->getEmail();
     }
 
     public function getPlainPassword(): ?string
