@@ -38,15 +38,15 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
         new GetCollection(),
         new Post(
             security: "is_granted('ROLE_USER')",
-            securityMessage: "Only authenticated users can create questions."
+            securityMessage: "Only authenticated users can create questions"
         ),
         new Put(
-            security: "is_granted('ROLE_USER')",
-            securityMessage: "Only authenticated users can update questions."
+            security: "is_granted('ROLE_USER') and object.getOwner() == user",
+            securityMessage: "Only authenticated owners can update questions"
         ),
         new Delete(
-            security: "is_granted('ROLE_USER')",
-            securityMessage: "Only authenticated users can delete questions."
+            security: "is_granted('ROLE_USER') and object.getOwner() == user",
+            securityMessage: "Only authenticated owners can deletecomments"
         ),
     ],
     normalizationContext: ['groups' => ['question:read'], 'swagger_definition_name' => 'Read'],

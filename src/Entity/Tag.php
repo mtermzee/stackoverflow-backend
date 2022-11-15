@@ -26,15 +26,15 @@ use ApiPlatform\Metadata\Delete;
         new GetCollection(),
         new Post(
             security: "is_granted('ROLE_ADMIN')",
-            securityMessage: "Only authenticated admins can create tags."
+            securityMessage: "Only authenticated admins can create tags"
         ),
         new Put(
-            security: "is_granted('ROLE_ADMIN')",
-            securityMessage: "Only authenticated admins can update tags."
+            security: "is_granted('ROLE_ADMIN') and object.getOwner() == user",
+            securityMessage: "Only authenticated owners can update tags"
         ),
         new Delete(
-            security: "is_granted('ROLE_ADMIN')",
-            securityMessage: "Only authenticated admins can create tags."
+            security: "is_granted('ROLE_ADMIN') and object.getOwner() == user",
+            securityMessage: "Only authenticated owners can delete tags"
         ),
     ],
     normalizationContext: ['groups' => ['tag:read'], 'swagger_definition_name' => 'Read'],

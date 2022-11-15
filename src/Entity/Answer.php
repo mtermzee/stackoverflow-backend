@@ -28,15 +28,15 @@ use ApiPlatform\Metadata\Delete;
         new GetCollection(),
         new Post(
             security: "is_granted('ROLE_USER')",
-            securityMessage: "Only authenticated users can create answers."
+            securityMessage: "Only authenticated users can create answers"
         ),
         new Put(
-            security: "is_granted('ROLE_USER')",
-            securityMessage: "Only authenticated users can update answers."
+            security: "is_granted('ROLE_USER') and object.getOwner() == user",
+            securityMessage: "Only authenticated owners can update answers"
         ),
         new Delete(
-            security: "is_granted('ROLE_USER')",
-            securityMessage: "Only authenticated users can delete answers."
+            security: "is_granted('ROLE_USER') and object.getOwner() == user",
+            securityMessage: "Only authenticated owners can delete answers"
         ),
     ],
     normalizationContext: ['groups' => ['answer:read'], 'swagger_definition_name' => 'Read'],

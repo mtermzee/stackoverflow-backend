@@ -26,12 +26,12 @@ use ApiPlatform\Metadata\Delete;
             securityMessage: "Only authenticated users can create comments"
         ),
         new Put(
-            security: "is_granted('ROLE_USER')",
-            securityMessage: "Only authenticated users can update comments."
+            security: "is_granted('ROLE_USER') and object.getOwner() == user",
+            securityMessage: "Only authenticated owners can update comments"
         ),
         new Delete(
-            security: "is_granted('ROLE_USER')",
-            securityMessage: "Only authenticated users can delete comments"
+            security: "is_granted('ROLE_USER') and object.getOwner() == user",
+            securityMessage: "Only authenticated owners can delete comments"
         ),
     ],
     normalizationContext: ['groups' => ['comment:read'], 'swagger_definition_name' => 'Read'],

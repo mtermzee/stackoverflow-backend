@@ -26,14 +26,8 @@ use ApiPlatform\Metadata\Delete;
     operations: [
         new Get(),
         new GetCollection(),
-        new Post(
-            security: "is_granted('ROLE_USER')",
-            securityMessage: "Only authenticated users can create questions."
-        ),
-        new Put(
-            security: "is_granted('ROLE_USER')",
-            securityMessage: "Only authenticated users can create questions."
-        )
+        new Post(),
+        new Put()
     ],
     normalizationContext: ['groups' => ['user:read']],
     denormalizationContext: ['groups' => ['user:write']],
