@@ -21,8 +21,10 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use ApiPlatform\Metadata\Delete;
+use App\State\UserPasswordHasher;
 
 #[ApiResource(
+    processor: UserPasswordHasher::class,
     operations: [
         new Get(
             security: "is_granted('ROLE_USER')",
@@ -76,7 +78,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[Groups(['user:write'])]
     #[SerializedName('password')]
-    private $plainPassword;
+    #[Assert\NotBlank]
+    private ?string $plainPassword = null;
 
     #[Groups(['userAPI:read', 'user:read'])]
     #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Question::class)]
@@ -180,6 +183,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword(?string $plainPassword): self
+    {
+        $this->plainPassword = $plainPassword;
+        $this->password = null;
+
+        return $this;
+    }
+
     /**
      * @see UserInterface
      */
@@ -206,18 +222,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getDisplayName(): string
     {
         return $this->getName() ?? $this->getEmail();
-    }
-
-    public function getPlainPassword(): ?string
-    {
-        return $this->plainPassword;
-    }
-
-    public function setPlainPassword(?string $plainPassword): self
-    {
-        $this->plainPassword = $plainPassword;
-
-        return $this;
     }
 
     #[Groups(['userAPI:read', 'user:read'])]
