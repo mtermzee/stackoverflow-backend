@@ -75,6 +75,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[Groups(['user:write'])]
+    #[SerializedName('password')]
     private $plainPassword;
 
     #[Groups(['userAPI:read', 'user:read'])]
