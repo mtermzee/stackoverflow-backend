@@ -221,7 +221,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[SerializedName('displayNameEmail')]
     public function getDisplayName(): string
     {
-        return $this->getName() ?? $this->getEmail();
+        return $this->getName() ?? substr($this->getEmail(), 0, strpos($this->getEmail(), "@"));
     }
 
     #[Groups(['userAPI:read', 'user:read'])]
