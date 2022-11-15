@@ -71,10 +71,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var string The hashed password
      */
-    #[Groups(['user:write'])]
     #[ORM\Column]
     private ?string $password = null;
 
+    #[Groups(['user:write'])]
     private $plainPassword;
 
     #[Groups(['userAPI:read', 'user:read'])]
