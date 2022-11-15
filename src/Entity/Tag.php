@@ -24,9 +24,18 @@ use ApiPlatform\Metadata\Delete;
     operations: [
         new Get(),
         new GetCollection(),
-        new Post(),
-        new Put(),
-        new Delete(),
+        new Post(
+            security: "is_granted('ROLE_ADMIN')",
+            securityMessage: "Only authenticated admins can create tags."
+        ),
+        new Put(
+            security: "is_granted('ROLE_ADMIN')",
+            securityMessage: "Only authenticated admins can update tags."
+        ),
+        new Delete(
+            security: "is_granted('ROLE_ADMIN')",
+            securityMessage: "Only authenticated admins can create tags."
+        ),
     ],
     normalizationContext: ['groups' => ['tag:read'], 'swagger_definition_name' => 'Read'],
     denormalizationContext: ['groups' => ['tag:write'], 'swagger_definition_name' => 'Write'],

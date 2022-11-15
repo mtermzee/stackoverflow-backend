@@ -32,15 +32,23 @@ use App\ApiResource\QuestionSearchFilter;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 
 #[ApiResource(
+    //security: "is_granted('ROLE_USER')",
     operations: [
         new Get(),
         new GetCollection(),
-        new Post(),
-        new Put(),
-        new Delete(),
+        new Post(
+            security: "is_granted('ROLE_USER')",
+            securityMessage: "Only authenticated users can create questions."
+        ),
+        new Put(
+            security: "is_granted('ROLE_USER')",
+            securityMessage: "Only authenticated users can update questions."
+        ),
+        new Delete(
+            security: "is_granted('ROLE_USER')",
+            securityMessage: "Only authenticated users can delete questions."
+        ),
     ],
-    // ['groups' => ['read']]
-    // ['groups' => ['write']]
     normalizationContext: ['groups' => ['question:read'], 'swagger_definition_name' => 'Read'],
     denormalizationContext: ['groups' => ['question:write'], 'swagger_definition_name' => 'Write'],
     paginationClientEnabled: true,
@@ -65,61 +73,52 @@ class Question
     #[ORM\Column]
     private ?int $id = null;
 
-    //#[Groups(['read', 'write'])]
     #[Groups(['question:read', 'question:write'])]
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank]
     #[Assert\Length(min: 2, max: 50, maxMessage: 'The question name is too long.')]
     private ?string $title = null;
 
-    //#[Groups(['read'])]
     #[Groups(['question:read'])]
     #[ORM\Column(length: 100)]
     #[Gedmo\Slug(fields: ['title'])]
     private ?string $slug = null;
 
-    // #[Groups(['read', 'write'])]
     #[Groups(['question:read', 'userAPI:read'])]
     #[ORM\Column(type: Types::TEXT)]
-    #[Assert\NotBlank]
-    #[Assert\Length(min: 2, max: 255, maxMessage: 'The question description is too long.')]
+    //#[Assert\NotBlank]
+    //#[Assert\Length(min: 2, max: 255, maxMessage: 'The question description is too long.')]
     private ?string $question = null;
 
-    // #[Groups(['read', 'write'])]
     #[Groups(['question:read', 'question:write'])]
     #[Assert\NotBlank]
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $askedAt = null;
 
-    // #[Groups(['read'])]
     #[Groups(['question:read', 'question:write'])]
     #[ORM\Column]
     private int $votes = 0;
 
-    // #[Groups(['read'])]
     #[Groups(['question:read', 'question:write'])]
     #[ORM\Column]
     private ?bool $isPublished = false;
 
-    // #[Groups(['read'])]
     #[Groups(['question:read'])]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Gedmo\Timestampable(on: 'create')]
     private $createdAt;
 
-    // #[Groups(['read'])]
     #[Groups(['question:read'])]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Gedmo\Timestampable(on: 'update')]
     private $updatedAt;
 
-    // #[Groups(['read'])]
     #[Groups(['question:read'])]
     #[ORM\OneToMany(mappedBy: 'question', targetEntity: Answer::class, fetch: 'EXTRA_LAZY'), OrderBy(['createdAt' => 'DESC'])]
     private Collection $answers;
 
-    // #[Groups(['read'])]
     #[Groups(['question:read', 'question:write'])]
+    #[Assert\NotBlank]
     #[ORM\ManyToMany(targetEntity: Tag::class, fetch: 'EXTRA_LAZY', inversedBy: 'questions')]
     private Collection $tags;
 
