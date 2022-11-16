@@ -19,6 +19,7 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use ApiPlatform\Metadata\Delete;
+use App\Doctrine\SetOwnerListener;
 
 #[ApiResource(
     operations: [
@@ -41,6 +42,7 @@ use ApiPlatform\Metadata\Delete;
     denormalizationContext: ['groups' => ['tag:write'], 'swagger_definition_name' => 'Write'],
 )]
 #[ORM\Entity(repositoryClass: TagRepository::class)]
+#[ORM\EntityListeners([SetOwnerListener::class])]
 #[UniqueEntity('name', message: 'This tag already exists')]
 class Tag
 {
@@ -74,7 +76,7 @@ class Tag
     #[ORM\ManyToMany(targetEntity: Question::class, mappedBy: 'tags')]
     private Collection $questions;
 
-    #[Groups(['tag:read', 'tag:write'])]
+    #[Groups(['tag:read'])]
     #[ORM\ManyToOne(inversedBy: 'tags')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $owner = null;

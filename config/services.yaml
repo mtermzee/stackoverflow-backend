@@ -41,3 +41,6 @@ services:
     decorates: "api_platform.serializer.context_builder"
     arguments: ['@App\Serializer\AdminGroupsContextBuilder.inner']
     autoconfigure: false
+
+  App\Doctrine\SetOwnerListener:
+    tags: [doctrine.orm.entity_listener]

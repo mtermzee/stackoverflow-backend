@@ -15,8 +15,8 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use ApiPlatform\Metadata\Delete;
+use App\Doctrine\SetOwnerListener;
 
-#[ORM\Entity(repositoryClass: CommentRepository::class)]
 #[ApiResource(
     operations: [
         new Get(),
@@ -37,6 +37,8 @@ use ApiPlatform\Metadata\Delete;
     normalizationContext: ['groups' => ['comment:read'], 'swagger_definition_name' => 'Read'],
     denormalizationContext: ['groups' => ['comment:write'], 'swagger_definition_name' => 'Write'],
 )]
+#[ORM\Entity(repositoryClass: CommentRepository::class)]
+#[ORM\EntityListeners([SetOwnerListener::class])]
 class Comment
 {
     #[ORM\Id]
@@ -63,7 +65,7 @@ class Comment
     #[ORM\ManyToOne(inversedBy: 'comments', fetch: 'EXTRA_LAZY'), OrderBy(['createdAt' => 'DESC'])]
     private ?Answer $answer = null;
 
-    #[Groups(['comment:read', 'comment:write'])]
+    #[Groups(['comment:read'])]
     #[ORM\ManyToOne(inversedBy: 'comments')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $owner = null;

@@ -21,6 +21,7 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use ApiPlatform\Metadata\Delete;
+use App\Doctrine\SetOwnerListener;
 
 #[ApiResource(
     operations: [
@@ -45,6 +46,7 @@ use ApiPlatform\Metadata\Delete;
 #[ApiFilter(PropertyFilter::class)]
 #[ApiFilter(OrderFilter::class, properties: ['votes' => 'DESC'])]
 #[ORM\Entity(repositoryClass: AnswerRepository::class)]
+#[ORM\EntityListeners([SetOwnerListener::class])]
 class Answer
 {
     public const STATUS_NEED_APPROVAL = 'need_approval';
@@ -89,7 +91,7 @@ class Answer
     #[ORM\OneToMany(mappedBy: 'answer', targetEntity: Comment::class)]
     private Collection $comments;
 
-    #[Groups(['answer:read', 'answer:write'])]
+    #[Groups(['answer:read'])]
     #[ORM\ManyToOne(inversedBy: 'answers')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $owner = null;

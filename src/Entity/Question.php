@@ -29,6 +29,7 @@ use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use ApiPlatform\Metadata\Delete;
 use App\ApiResource\QuestionSearchFilter;
+use App\Doctrine\SetOwnerListener;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 
 #[ApiResource(
@@ -63,6 +64,7 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 #[ApiFilter(PropertyFilter::class)]
 #[ApiFilter(QuestionSearchFilter::class)]
 #[ORM\Entity(repositoryClass: QuestionRepository::class)]
+#[ORM\EntityListeners([SetOwnerListener::class])]
 class Question
 {
     // use it for the created and updated fields
@@ -73,7 +75,7 @@ class Question
     #[ORM\Column]
     private ?int $id = null;
 
-    #[Groups(['question:read', 'question:write'])]
+    #[Groups(['question:read', 'question:write', 'userAPI:read'])]
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank]
     #[Assert\Length(min: 2, max: 50, maxMessage: 'The question name is too long.')]
@@ -122,7 +124,7 @@ class Question
     #[ORM\ManyToMany(targetEntity: Tag::class, fetch: 'EXTRA_LAZY', inversedBy: 'questions')]
     private Collection $tags;
 
-    #[Groups(['question:read', 'question:write'])]
+    #[Groups(['question:read'])]
     #[ORM\ManyToOne(inversedBy: 'questions')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $owner = null;
