@@ -34,10 +34,13 @@ use App\State\UserPasswordHasher;
             security: "is_granted('ROLE_USER')",
             securityMessage: "Only authenticated users can fitch user"
         ),
-        new Post(),
+        new Post(
+            validationContext: ['groups' => ['Default', 'postValidation']]
+        ),
         new Put(
             security: "is_granted('ROLE_USER') and object == user",
-            securityMessage: "Only authenticated owners can update users"
+            securityMessage: "Only authenticated owners can update users",
+            validationContext: ['groups' => ['Default', 'putValidation']]
         )
     ],
     normalizationContext: ['groups' => ['user:read']],
@@ -54,12 +57,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[Groups(['userAPI:read', 'user:read', 'user:write'])]
     #[ORM\Column(length: 180, unique: true)]
-    #[Assert\NotBlank]
+    #[Assert\NotBlank(groups: ['postValidation'])]
     #[Assert\Email]
     private ?string $email = null;
 
     #[Groups(['userAPI:read', 'user:read', 'user:write'])]
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\NotBlank(groups: ['putValidation'])]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
@@ -78,7 +82,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[Groups(['user:write'])]
     #[SerializedName('password')]
-    #[Assert\NotBlank]
+    #[Assert\NotBlank(groups: ['postValidation'])]
     private ?string $plainPassword = null;
 
     #[Groups(['userAPI:read', 'user:read'])]
