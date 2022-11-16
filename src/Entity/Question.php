@@ -185,7 +185,7 @@ class Question
         return $this;
     }
 
-    #[Groups(['read'])]
+    #[Groups(['question:read'])]
     public function getShortQuestion(): ?string
     {
         //strip_tags
