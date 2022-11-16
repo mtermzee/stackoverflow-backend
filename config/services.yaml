@@ -36,3 +36,8 @@ services:
   App\State\UserPasswordHasher:
     bind:
       $decorated: "@api_platform.doctrine.orm.state.persist_processor"
+
+  App\Serializer\AdminGroupsContextBuilder:
+    decorates: "api_platform.serializer.context_builder"
+    arguments: ['@App\Serializer\AdminGroupsContextBuilder.inner']
+    autoconfigure: false

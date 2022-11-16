@@ -70,7 +70,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Gedmo\Timestampable(on: 'create')]
     private $joinedAt;
 
-    #[Groups(['userAPI:read', 'user:read'])]
+    #[Groups(['userAPI:read', 'admin:read'])]
     #[ORM\Column]
     private array $roles = [];
 
