@@ -51,7 +51,7 @@ class Tag
     #[ORM\Column]
     private ?int $id = null;
 
-    #[Groups(['tag:read', 'tag:write', 'question:read'])]
+    #[Groups(['tag:read', 'tag:write', 'question:read', 'userAPI:read'])]
     #[ORM\Column(length: 255, unique: true)]
     #[Assert\NotBlank]
     private ?string $name = null;
