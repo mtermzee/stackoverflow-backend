@@ -55,13 +55,13 @@ class AppFixtures extends Fixture
             ->unpublished()
             ->createMany(5);*/
 
-        $answers = AnswerFactory::new(function () use ($questions) {
+        /*$answers = AnswerFactory::new(function () use ($questions) {
             return [
                 'question' => $questions[array_rand($questions)],
                 //'comments' => CommentFactory::randomRange(1, 2),
                 'owner' => UserFactory::random(),
             ];
-        })->needsApproval()->many(20)->create();
+        })->needsApproval()->many(20)->create();*/
 
         $answers = AnswerFactory::createMany(100, function () use ($questions) {
             return [

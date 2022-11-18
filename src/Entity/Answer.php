@@ -49,9 +49,9 @@ use App\Doctrine\SetOwnerListener;
 #[ORM\EntityListeners([SetOwnerListener::class])]
 class Answer
 {
-    public const STATUS_NEED_APPROVAL = 'need_approval';
+    /*public const STATUS_NEED_APPROVAL = 'need_approval';
     public const STATUS_SPAM = 'spam';
-    public const STATUS_APPROVED = 'approved';
+    public const STATUS_APPROVED = 'approved';*/
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -67,10 +67,10 @@ class Answer
     #[ORM\Column]
     private int $votes = 0;
 
-    #[Groups(['answer:read', 'answer:write'])]
+    /*#[Groups(['answer:read', 'answer:write'])]
     #[ORM\Column(length: 15)]
     #[Assert\NotBlank]
-    private ?string $status = null;
+    private ?string $status = null;*/
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Gedmo\Timestampable(on: 'create')]
@@ -149,7 +149,7 @@ class Answer
         return $this;
     }
 
-    public function isApproved(): bool
+    /*  public function isApproved(): bool
     {
         return $this->status === self::STATUS_APPROVED;
     }
@@ -167,7 +167,7 @@ class Answer
         $this->status = $status;
 
         return $this;
-    }
+    }*/
 
     public function getCreatedAt(): ?\DateTimeInterface
     {

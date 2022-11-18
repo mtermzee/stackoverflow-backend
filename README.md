@@ -43,7 +43,7 @@ npm run watch
 docker-compose up -d
 docker-compose ps
 
-symfony console doctrine:make:migration
+symfony console make:migration
 
 symfony console doctrine:database:drop --force
 symfony console doctrine:database:create

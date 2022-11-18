@@ -35,10 +35,10 @@ final class AnswerFactory extends ModelFactory
         // TODO inject services if required (https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#factories-as-services)
     }
 
-    public function needsApproval(): self
+    /* public function needsApproval(): self
     {
         return $this->addState(['status' => Answer::STATUS_NEED_APPROVAL]);
-    }
+    }*/
 
     protected function getDefaults(): array
     {
@@ -46,7 +46,7 @@ final class AnswerFactory extends ModelFactory
             // TODO add your default values here (https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#model-factories)
             'content' => self::faker()->text(),
             'votes' => self::faker()->numberBetween(-20, 50),
-            'status' => Answer::STATUS_APPROVED,
+            //'status' => Answer::STATUS_APPROVED,
             'question' => QuestionFactory::new(),
             'owner' => UserFactory::new(),
             //'question' => QuestionFactory::new()->unpublished(),
