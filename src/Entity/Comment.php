@@ -16,6 +16,7 @@ use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use ApiPlatform\Metadata\Delete;
 use App\Doctrine\SetOwnerListener;
+use Carbon\Carbon;
 
 #[ApiResource(
     operations: [
@@ -51,12 +52,10 @@ class Comment
     #[Assert\NotBlank]
     private ?string $content = null;
 
-    #[Groups(['comment:read'])]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Gedmo\Timestampable(on: 'create')]
     private ?\DateTimeInterface $createdAt = null;
 
-    #[Groups(['comment:read'])]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Gedmo\Timestampable(on: 'update')]
     private ?\DateTimeInterface $updatedAt = null;
@@ -92,6 +91,12 @@ class Comment
         return $this->createdAt;
     }
 
+    #[Groups(['comment:read'])]
+    public function getCreatedAtAgo(): string
+    {
+        return Carbon::instance($this->getCreatedAt())->diffForHumans();
+    }
+
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
@@ -102,6 +107,12 @@ class Comment
     public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updatedAt;
+    }
+
+    #[Groups(['comment:read'])]
+    public function getUpdatedAtAgo(): string
+    {
+        return Carbon::instance($this->getUpdatedAt())->diffForHumans();
     }
 
     public function setUpdatedAt(\DateTimeInterface $updatedAt): self

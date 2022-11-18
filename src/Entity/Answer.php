@@ -72,12 +72,10 @@ class Answer
     #[Assert\NotBlank]
     private ?string $status = null;
 
-    #[Groups(['answer:read'])]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Gedmo\Timestampable(on: 'create')]
     private $createdAt;
 
-    #[Groups(['answer:read'])]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Gedmo\Timestampable(on: 'update')]
     private $updatedAt;
@@ -176,7 +174,8 @@ class Answer
         return $this->createdAt;
     }
 
-    #[Groups(['answer:read', 'question:read'])]
+    //#[Groups(['answer:read', 'question:read'])]
+    #[Groups(['answer:read'])]
     public function getCreatedAtAgo(): string
     {
         return Carbon::instance($this->getCreatedAt())->diffForHumans();
@@ -191,6 +190,13 @@ class Answer
     public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updatedAt;
+    }
+
+    //#[Groups(['answer:read', 'question:read'])]
+    #[Groups(['answer:read'])]
+    public function getUpdatedAtAgo(): string
+    {
+        return Carbon::instance($this->getUpdatedAt())->diffForHumans();
     }
 
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self

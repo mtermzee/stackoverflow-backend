@@ -62,12 +62,10 @@ class Tag
     #[ORM\Column]
     private ?\DateTimeImmutable $taggedAt;*/
 
-    #[Groups(['tag:read'])]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Gedmo\Timestampable(on: 'create')]
     private $createdAt;
 
-    #[Groups(['tag:read'])]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Gedmo\Timestampable(on: 'update')]
     private $updatedAt;
@@ -123,7 +121,8 @@ class Tag
         return $this->createdAt;
     }
 
-    #[Groups(['tag:read', 'question:read'])]
+    //#[Groups(['tag:read', 'question:read'])]
+    #[Groups(['tag:read'])]
     public function getCreatedAtAgo(): string
     {
         return Carbon::instance($this->getCreatedAt())->diffForHumans();
@@ -138,6 +137,13 @@ class Tag
     public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updatedAt;
+    }
+
+    //#[Groups(['tag:read', 'question:read'])]
+    #[Groups(['tag:read'])]
+    public function getUpdatedAtAgo(): string
+    {
+        return Carbon::instance($this->getUpdatedAt())->diffForHumans();
     }
 
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
