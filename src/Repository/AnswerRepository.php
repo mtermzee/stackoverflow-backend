@@ -40,24 +40,24 @@ class AnswerRepository extends ServiceEntityRepository
         }
     }
 
-    public static function createApprovedCriteria(): Criteria
+    /* public static function createApprovedCriteria(): Criteria
     {
         // for better performance
         return Criteria::create()
             ->andWhere(Criteria::expr()->eq('status', Answer::STATUS_APPROVED));
-    }
+    }*/
 
     /**
      * @return Answer[]
      */
-    public function findAllApproved(int $max = 10): array
+    /*public function findAllApproved(int $max = 10): array
     {
         return $this->createQueryBuilder('answer')
             ->addCriteria(self::createApprovedCriteria())
             ->setMaxResults($max)
             ->getQuery()
             ->getResult();
-    }
+    }*/
 
     /**
      * @return Answer[]
@@ -65,7 +65,7 @@ class AnswerRepository extends ServiceEntityRepository
     public function findeMostPopular(string $search = null): array
     {
         $queryBulider = $this->createQueryBuilder('answer')
-            ->addCriteria(self::createApprovedCriteria())
+            //->addCriteria(self::createApprovedCriteria())
             ->orderBy('answer.votes', 'DESC')
             // joining across many-to-one relations: N+1 problem
             ->innerJoin('answer.question', 'question')

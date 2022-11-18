@@ -315,14 +315,14 @@ class Question
         return $this;
     }
 
-    public function getApprovedAnswers(): Collection
+    /*public function getApprovedAnswers(): Collection
     {
-        /*return $this->answers->filter(function (Answer $answer) {
-            return $answer->isApproved();
-        });*/
+        //return $this->answers->filter(function (Answer $answer) {
+          //  return $answer->isApproved();
+        //});
 
         return $this->answers->matching(AnswerRepository::createApprovedCriteria());
-    }
+    }*/
 
     /**
      * @return Collection<int, Tag>
