@@ -38,7 +38,7 @@ use App\State\UserPasswordHasher;
             validationContext: ['groups' => ['Default', 'postValidation']]
         ),
         new Put(
-            security: "is_granted('ROLE_USER') and object == user",
+            security: "is_granted('ROLE_USER') and object == user or is_granted('ROLE_ADMIN')",
             securityMessage: "Only authenticated owners can update users",
             validationContext: ['groups' => ['Default', 'putValidation']]
         )
@@ -70,7 +70,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Gedmo\Timestampable(on: 'create')]
     private $joinedAt;
 
-    #[Groups(['userAPI:read', 'admin:read'])]
+    #[Groups(['userAPI:read', 'admin:read', 'admin:write'])]
     #[ORM\Column]
     private array $roles = [];
 
