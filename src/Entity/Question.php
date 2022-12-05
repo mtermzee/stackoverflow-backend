@@ -102,7 +102,7 @@ class Question
     #[ORM\Column]
     private int $votes = 0;
 
-    #[Groups(['question:read', 'question:write'])]
+    #[Groups(['question:read', 'admin:write'])]
     #[ORM\Column]
     private ?bool $isPublished = false;
 
