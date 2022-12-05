@@ -87,6 +87,7 @@ class Question
     private ?string $slug = null;
 
     #[Groups(['question:read', 'userAPI:read'])]
+    #[SerializedName('description')]
     #[ORM\Column(type: Types::TEXT)]
     //#[Assert\NotBlank]
     //#[Assert\Length(min: 2, max: 255, maxMessage: 'The question description is too long.')]
