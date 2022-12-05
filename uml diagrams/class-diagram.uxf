@@ -1,0 +1,106 @@
+<diagram program="umletino" version="15.0.0"><zoom_level>7</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>105</x><y>294</y><w>147</w><h>161</h></coordinates><panel_attributes>Question
+--
+-id: int
+-title: string
+-slug: string
+-question: string
+-askedAt: DateTimeInterface
+-votes: int
+-isPublished: bool
+-createdAt: Timestampable
+-updatedAt:Timestampable
+--
++getShortQuestion(): string
++getCreatedAtAgo(): string
++getUpdatedAtAgo(): string
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>105</x><y>665</y><w>147</w><h>98</h></coordinates><panel_attributes>Tag
+--
+-id: int
+-name: string
+-createdAt: Timestampable
+-updatedAt:Timestampable
+--
++getCreatedAtAgo(): string
++getUpdatedAtAgo(): string
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>574</x><y>329</y><w>147</w><h>119</h></coordinates><panel_attributes>Answer
+--
+-id: int
+-content: string
+-votes: int
+-createdAt: Timestampable
+-updatedAt:Timestampable
+--
++getVotesString(): string
++getCreatedAtAgo(): string
++getUpdatedAtAgo(): string
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>574</x><y>658</y><w>147</w><h>98</h></coordinates><panel_attributes>Comment
+--
+-id: int
+-content: string
+-createdAt: Timestampable
+-updatedAt:Timestampable
+--
++getCreatedAtAgo(): string
++getUpdatedAtAgo(): string
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>343</x><y>490</y><w>147</w><h>147</h></coordinates><panel_attributes>User
+--
+-id: int
+-email: string
+-name: string
+-joinedAt: Timestampable
+-roles: array
+-password: string
+-plainPassword: string
+--
++getJoinedAtAgo(): string
++getUserIdentifier(): string
++getDisplayName(): string
++eraseCredentials()
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>168</x><y>448</y><w>28</w><h>231</h></coordinates><panel_attributes>lt=-
+m1=n
+m2=m</panel_attributes><additional_attributes>10;310;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>245</x><y>322</y><w>343</w><h>28</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=n</panel_attributes><additional_attributes>10;10;470;10</additional_attributes></element><element><id>Relation</id><coordinates><x>637</x><y>441</y><w>28</w><h>231</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=n</panel_attributes><additional_attributes>10;10;10;310</additional_attributes></element><element><id>Relation</id><coordinates><x>245</x><y>630</y><w>154</w><h>112</h></coordinates><panel_attributes>lt=&lt;&lt;-
+admins
+creates
+m2=n	
+m1=m</panel_attributes><additional_attributes>10;130;190;130;190;10</additional_attributes></element><element><id>Relation</id><coordinates><x>448</x><y>630</y><w>140</w><h>112</h></coordinates><panel_attributes>lt=&lt;&lt;-
+creates
+m2=1
+m1=n</panel_attributes><additional_attributes>180;130;10;130;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>483</x><y>406</y><w>105</w><h>168</h></coordinates><panel_attributes>lt=&lt;&lt;-
+creates
+m2=1
+m1=n</panel_attributes><additional_attributes>130;10;70;10;70;210;10;210</additional_attributes></element><element><id>Relation</id><coordinates><x>245</x><y>406</y><w>112</w><h>168</h></coordinates><panel_attributes>lt=&lt;&lt;-
+creates
+m2=1
+m1=n</panel_attributes><additional_attributes>10;10;80;10;80;210;140;210</additional_attributes></element><element><id>UMLClass</id><coordinates><x>833</x><y>518</y><w>147</w><h>49</h></coordinates><panel_attributes>SetOwnerListener
+--
+-security: Security
+--
++prePersist
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>714</x><y>560</y><w>210</w><h>175</h></coordinates><panel_attributes>lt=&lt;&lt;-
+uses</panel_attributes><additional_attributes>280;10;280;230;10;230</additional_attributes></element><element><id>Relation</id><coordinates><x>714</x><y>378</y><w>210</w><h>154</h></coordinates><panel_attributes>lt=&lt;&lt;-
+uses</panel_attributes><additional_attributes>280;200;280;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>168</x><y>231</y><w>756</w><h>175</h></coordinates><panel_attributes>uses</panel_attributes><additional_attributes>1060;230;1060;20;10;20;10;90</additional_attributes></element><element><id>Relation</id><coordinates><x>168</x><y>714</y><w>756</w><h>126</h></coordinates><panel_attributes>uses</panel_attributes><additional_attributes>1060;10;1060;160;10;160;10;70</additional_attributes></element><element><id>UMLClass</id><coordinates><x>42</x><y>84</y><w>280</w><h>84</h></coordinates><panel_attributes>QuestionSearchFilter
+--
++filterProperty(string $property, $value, QueryBuilder $queryBuilder, 
+QueryNameGeneratorInterface $queryNameGenerator, 
+string $resourceClass,Operation $operation = null, 
+array $context = []): void
++getDescription(string $resourceClass): array
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>168</x><y>161</y><w>35</w><h>140</h></coordinates><panel_attributes>lt=&lt;&lt;-
+uses</panel_attributes><additional_attributes>10;10;10;180</additional_attributes></element><element><id>UMLClass</id><coordinates><x>315</x><y>343</y><w>203</w><h>70</h></coordinates><panel_attributes>UserPasswordHasher
+--
+-decorated: ProcessorInterface
+-passwordHasher: UserPasswordHasherInterface
+--
++process($data, Operation $operation, 
+array $uriVariables = [], array $context = [])
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>406</x><y>406</y><w>35</w><h>98</h></coordinates><panel_attributes>lt=&lt;&lt;-
+uses</panel_attributes><additional_attributes>10;10;10;120</additional_attributes></element><element><id>UMLClass</id><coordinates><x>420</x><y>98</y><w>126</w><h>49</h></coordinates><panel_attributes>JwtDecorator
+--
+-test: string
+--
++test(): void
+</panel_attributes><additional_attributes></additional_attributes></element></diagram>
