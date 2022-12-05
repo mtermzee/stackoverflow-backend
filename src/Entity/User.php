@@ -221,7 +221,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    #[Groups(['userAPI:read', 'user:read'])]
+    #[Groups(['userAPI:read', 'user:read', 'question:read'])]
     #[SerializedName('displayNameEmail')]
     public function getDisplayName(): string
     {
