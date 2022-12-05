@@ -42,8 +42,8 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
             securityMessage: "Only authenticated users can create questions"
         ),
         new Put(
-            security: "is_granted('ROLE_USER') and object.getOwner() == user",
-            securityMessage: "Only authenticated owners can update questions"
+            security: "is_granted('ROLE_USER') or object.getOwner() == user",
+            securityMessage: "Only authenticated users or owners can update questions"
         ),
         new Delete(
             security: "is_granted('ROLE_USER') and object.getOwner() == user",

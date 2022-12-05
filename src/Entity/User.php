@@ -39,7 +39,7 @@ use App\State\UserPasswordHasher;
         ),
         new Put(
             security: "is_granted('ROLE_USER') and object == user or is_granted('ROLE_ADMIN')",
-            securityMessage: "Only authenticated owners can update users",
+            securityMessage: "Only authenticated owners or admins can update users",
             validationContext: ['groups' => ['Default', 'putValidation']]
         )
     ],
