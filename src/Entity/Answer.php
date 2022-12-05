@@ -34,7 +34,7 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
         ),
         new Put(
             security: "is_granted('ROLE_USER') or object.getOwner() == user",
-            securityMessage: "Only authenticated owners can update answers"
+            securityMessage: "Only authenticated users or owners can update answers"
         ),
         new Delete(
             security: "is_granted('ROLE_USER') and object.getOwner() == user",
