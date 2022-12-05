@@ -22,6 +22,7 @@ use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use ApiPlatform\Metadata\Delete;
 use App\Doctrine\SetOwnerListener;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 
 #[ApiResource(
     operations: [
@@ -63,7 +64,7 @@ class Answer
     #[Assert\NotBlank]
     private ?string $content = null;
 
-    #[Groups(['answer:read', 'answer:write'])]
+    #[Groups(['answer:write'])]
     #[ORM\Column]
     private int $votes = 0;
 
@@ -128,6 +129,8 @@ class Answer
         return $this;
     }
 
+    #[Groups(['answer:read'])]
+    #[SerializedName('votes')]
     public function getVotesString(): string
     {
         $prefix = $this->votes > 0 ? '+' : '-';

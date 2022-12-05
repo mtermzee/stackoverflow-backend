@@ -97,7 +97,7 @@ class Question
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $askedAt = null;
 
-    #[Groups(['question:read', 'question:write'])]
+    #[Groups(['question:write'])]
     #[ORM\Column]
     private int $votes = 0;
 
@@ -218,6 +218,8 @@ class Question
         return $this;
     }
 
+    #[Groups(['question:read'])]
+    #[SerializedName('votes')]
     public function getVotesString(): string
     {
         $prefix = $this->votes > 0 ? '+' : '-';
