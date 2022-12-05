@@ -1,4 +1,4 @@
-<diagram program="umletino" version="15.0.0"><zoom_level>7</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>560</x><y>281</y><w>147</w><h>168</h></coordinates><panel_attributes>Question
+<diagram program="umletino" version="15.0.0"><zoom_level>7</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>558</x><y>281</y><w>147</w><h>168</h></coordinates><panel_attributes>Question
 --
 -id: int
 -title: string
@@ -14,7 +14,7 @@
 +getVotesString(): string
 +getCreatedAtAgo(): string
 +getUpdatedAtAgo(): string
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>560</x><y>652</y><w>147</w><h>98</h></coordinates><panel_attributes>Tag
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>558</x><y>652</y><w>147</w><h>98</h></coordinates><panel_attributes>Tag
 --
 -id: int
 -name: string
@@ -23,7 +23,7 @@
 --
 +getCreatedAtAgo(): string
 +getUpdatedAtAgo(): string
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1071</x><y>295</y><w>147</w><h>119</h></coordinates><panel_attributes>Answer
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1069</x><y>295</y><w>147</w><h>119</h></coordinates><panel_attributes>Answer
 --
 -id: int
 -content: string
@@ -34,7 +34,7 @@
 +getVotesString(): string
 +getCreatedAtAgo(): string
 +getUpdatedAtAgo(): string
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1071</x><y>645</y><w>147</w><h>98</h></coordinates><panel_attributes>Comment
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1069</x><y>645</y><w>147</w><h>98</h></coordinates><panel_attributes>Comment
 --
 -id: int
 -content: string
@@ -43,7 +43,7 @@
 --
 +getCreatedAtAgo(): string
 +getUpdatedAtAgo(): string
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>812</x><y>477</y><w>147</w><h>147</h></coordinates><panel_attributes>User
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>810</x><y>477</y><w>147</w><h>161</h></coordinates><panel_attributes>User
 --
 -id: int
 -email: string
@@ -56,50 +56,51 @@
 +getJoinedAtAgo(): string
 +getUserIdentifier(): string
 +getDisplayName(): string
++getAvatarURL(): string
 +eraseCredentials()
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>623</x><y>442</y><w>28</w><h>224</h></coordinates><panel_attributes>lt=-
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>621</x><y>442</y><w>28</w><h>224</h></coordinates><panel_attributes>lt=-
 m1=n
-m2=m</panel_attributes><additional_attributes>10;300;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>700</x><y>309</y><w>385</w><h>28</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m2=m</panel_attributes><additional_attributes>10;300;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>698</x><y>309</y><w>385</w><h>28</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-
 m1=1
-m2=n</panel_attributes><additional_attributes>10;10;530;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1141</x><y>407</y><w>28</w><h>252</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m2=n</panel_attributes><additional_attributes>10;10;530;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1139</x><y>407</y><w>28</w><h>252</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-
 m1=1
-m2=n</panel_attributes><additional_attributes>10;10;10;340</additional_attributes></element><element><id>Relation</id><coordinates><x>700</x><y>617</y><w>168</w><h>112</h></coordinates><panel_attributes>lt=&lt;&lt;-
+m2=n</panel_attributes><additional_attributes>10;10;10;340</additional_attributes></element><element><id>Relation</id><coordinates><x>698</x><y>631</y><w>168</w><h>98</h></coordinates><panel_attributes>lt=&lt;&lt;-
 admins
 creates
 m2=n	
-m1=m</panel_attributes><additional_attributes>10;130;210;130;210;10</additional_attributes></element><element><id>Relation</id><coordinates><x>917</x><y>617</y><w>168</w><h>112</h></coordinates><panel_attributes>lt=&lt;&lt;-
+m1=m</panel_attributes><additional_attributes>10;110;210;110;210;10</additional_attributes></element><element><id>Relation</id><coordinates><x>915</x><y>631</y><w>168</w><h>98</h></coordinates><panel_attributes>lt=&lt;&lt;-
 creates
 m2=1
-m1=n</panel_attributes><additional_attributes>220;130;10;130;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>952</x><y>393</y><w>133</w><h>168</h></coordinates><panel_attributes>lt=&lt;&lt;-
+m1=n</panel_attributes><additional_attributes>220;110;10;110;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>950</x><y>393</y><w>133</w><h>168</h></coordinates><panel_attributes>lt=&lt;&lt;-
 creates
 m2=1
-m1=n</panel_attributes><additional_attributes>170;10;100;10;100;210;10;210</additional_attributes></element><element><id>Relation</id><coordinates><x>700</x><y>393</y><w>126</w><h>168</h></coordinates><panel_attributes>lt=&lt;&lt;-
+m1=n</panel_attributes><additional_attributes>170;10;100;10;100;210;10;210</additional_attributes></element><element><id>Relation</id><coordinates><x>698</x><y>393</y><w>126</w><h>168</h></coordinates><panel_attributes>lt=&lt;&lt;-
 creates
 m2=1
-m1=n</panel_attributes><additional_attributes>10;10;80;10;80;210;160;210</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1316</x><y>505</y><w>147</w><h>49</h></coordinates><panel_attributes>SetOwnerListener
+m1=n</panel_attributes><additional_attributes>10;10;80;10;80;210;160;210</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1314</x><y>505</y><w>147</w><h>49</h></coordinates><panel_attributes>SetOwnerListener
 --
 -security: Security
 --
 +prePersist
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1211</x><y>547</y><w>196</w><h>168</h></coordinates><panel_attributes>lt=&lt;&lt;-
-uses</panel_attributes><additional_attributes>260;10;260;220;10;220</additional_attributes></element><element><id>Relation</id><coordinates><x>1211</x><y>344</y><w>196</w><h>175</h></coordinates><panel_attributes>lt=&lt;&lt;-
-uses</panel_attributes><additional_attributes>260;230;260;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>623</x><y>218</y><w>784</w><h>154</h></coordinates><panel_attributes>uses</panel_attributes><additional_attributes>1100;200;1100;20;10;20;10;90</additional_attributes></element><element><id>Relation</id><coordinates><x>623</x><y>694</y><w>784</w><h>133</h></coordinates><panel_attributes>uses</panel_attributes><additional_attributes>1100;10;1100;170;10;170;10;80</additional_attributes></element><element><id>UMLClass</id><coordinates><x>497</x><y>71</y><w>280</w><h>84</h></coordinates><panel_attributes>QuestionSearchFilter
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1209</x><y>547</y><w>196</w><h>168</h></coordinates><panel_attributes>lt=&lt;&lt;-
+uses</panel_attributes><additional_attributes>260;10;260;220;10;220</additional_attributes></element><element><id>Relation</id><coordinates><x>1209</x><y>344</y><w>196</w><h>175</h></coordinates><panel_attributes>lt=&lt;&lt;-
+uses</panel_attributes><additional_attributes>260;230;260;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>621</x><y>218</y><w>784</w><h>154</h></coordinates><panel_attributes>uses</panel_attributes><additional_attributes>1100;200;1100;20;10;20;10;90</additional_attributes></element><element><id>Relation</id><coordinates><x>621</x><y>694</y><w>784</w><h>133</h></coordinates><panel_attributes>uses</panel_attributes><additional_attributes>1100;10;1100;170;10;170;10;80</additional_attributes></element><element><id>UMLClass</id><coordinates><x>495</x><y>71</y><w>280</w><h>84</h></coordinates><panel_attributes>QuestionSearchFilter
 --
 +filterProperty(string $property, $value, QueryBuilder $queryBuilder, 
 QueryNameGeneratorInterface $queryNameGenerator, 
 string $resourceClass,Operation $operation = null, 
 array $context = []): void
 +getDescription(string $resourceClass): array
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>623</x><y>148</y><w>35</w><h>98</h></coordinates><panel_attributes>lt=&lt;&lt;-
-uses</panel_attributes><additional_attributes>10;10;10;120</additional_attributes></element><element><id>UMLClass</id><coordinates><x>784</x><y>337</y><w>203</w><h>70</h></coordinates><panel_attributes>UserPasswordHasher
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>621</x><y>148</y><w>35</w><h>98</h></coordinates><panel_attributes>lt=&lt;&lt;-
+uses</panel_attributes><additional_attributes>10;10;10;120</additional_attributes></element><element><id>UMLClass</id><coordinates><x>782</x><y>337</y><w>203</w><h>70</h></coordinates><panel_attributes>UserPasswordHasher
 --
 -decorated: ProcessorInterface
 -passwordHasher: UserPasswordHasherInterface
 --
 +process($data, Operation $operation, 
 array $uriVariables = [], array $context = [])
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>875</x><y>400</y><w>35</w><h>91</h></coordinates><panel_attributes>lt=&lt;&lt;-
-uses</panel_attributes><additional_attributes>10;10;10;110</additional_attributes></element><element><id>UMLClass</id><coordinates><x>889</x><y>85</y><w>126</w><h>49</h></coordinates><panel_attributes>JwtDecorator
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>873</x><y>400</y><w>35</w><h>91</h></coordinates><panel_attributes>lt=&lt;&lt;-
+uses</panel_attributes><additional_attributes>10;10;10;110</additional_attributes></element><element><id>UMLClass</id><coordinates><x>887</x><y>85</y><w>126</w><h>49</h></coordinates><panel_attributes>JwtDecorator
 --
 -test: string
 --
