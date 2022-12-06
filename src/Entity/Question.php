@@ -33,7 +33,7 @@ use App\Doctrine\SetOwnerListener;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 
 #[ApiResource(
-    //security: "is_granted('ROLE_USER')",
+    // security: "is_granted('ROLE_USER')",
     operations: [
         new Get(),
         new GetCollection(),

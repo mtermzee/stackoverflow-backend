@@ -24,6 +24,7 @@ use ApiPlatform\Metadata\Delete;
 use App\Doctrine\SetOwnerListener;
 
 #[ApiResource(
+    // security: "is_granted('ROLE_USER')",
     operations: [
         new Get(),
         new GetCollection(),

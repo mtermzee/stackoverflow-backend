@@ -21,6 +21,7 @@ use App\Doctrine\SetOwnerListener;
 use Carbon\Carbon;
 
 #[ApiResource(
+    // security: "is_granted('ROLE_USER')",
     operations: [
         new Get(),
         new GetCollection(),

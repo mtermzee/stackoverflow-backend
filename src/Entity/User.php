@@ -24,6 +24,7 @@ use ApiPlatform\Metadata\Delete;
 use App\State\UserPasswordHasher;
 
 #[ApiResource(
+    // security: "is_granted('ROLE_USER')",
     processor: UserPasswordHasher::class,
     operations: [
         new Get(
