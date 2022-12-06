@@ -57,7 +57,7 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 
 )]
 #[ApiFilter(BooleanFilter::class, properties: ['isPublished'])]
-#[ApiFilter(SearchFilter::class, properties: ['title' => 'partial', 'tags.name' => 'exact', 'owner.firstName' => 'partial'])]
+#[ApiFilter(SearchFilter::class, properties: ['title' => 'partial', 'tags.name' => 'exact', 'owner.name' => 'partial'])]
 //#[ApiFilter(RangeFilter::class, properties: ['votes'])]
 #[ApiFilter(OrderFilter::class, properties: ['votes' => 'DESC'])]
 #[ApiFilter(ExistsFilter::class, properties: ['answers'])]

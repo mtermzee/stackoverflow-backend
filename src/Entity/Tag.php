@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\TagRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -41,6 +43,7 @@ use App\Doctrine\SetOwnerListener;
     normalizationContext: ['groups' => ['tag:read'], 'swagger_definition_name' => 'Read'],
     denormalizationContext: ['groups' => ['tag:write'], 'swagger_definition_name' => 'Write'],
 )]
+#[ApiFilter(SearchFilter::class, properties: ['owner.name' => 'partial'])]
 #[ORM\Entity(repositoryClass: TagRepository::class)]
 #[ORM\EntityListeners([SetOwnerListener::class])]
 #[UniqueEntity('name', message: 'This tag already exists')]

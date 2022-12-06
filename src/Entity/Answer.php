@@ -6,6 +6,7 @@ use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use App\Repository\AnswerRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -46,6 +47,7 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 )]
 #[ApiFilter(PropertyFilter::class)]
 #[ApiFilter(OrderFilter::class, properties: ['votes' => 'DESC'])]
+#[ApiFilter(SearchFilter::class, properties: ['owner.name' => 'partial'])]
 #[ORM\Entity(repositoryClass: AnswerRepository::class)]
 #[ORM\EntityListeners([SetOwnerListener::class])]
 class Answer

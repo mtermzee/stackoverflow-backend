@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\CommentRepository;
 use Doctrine\DBAL\Types\Types;
@@ -38,6 +40,7 @@ use Carbon\Carbon;
     normalizationContext: ['groups' => ['comment:read'], 'swagger_definition_name' => 'Read'],
     denormalizationContext: ['groups' => ['comment:write'], 'swagger_definition_name' => 'Write'],
 )]
+#[ApiFilter(SearchFilter::class, properties: ['owner.name' => 'partial'])]
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
 #[ORM\EntityListeners([SetOwnerListener::class])]
 class Comment
